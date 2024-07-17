@@ -9,9 +9,28 @@ import SwiftUI
 
 @main
 struct DBTesterApp: App {
+    @StateObject var alertManager = AlertManager()
+    @StateObject var projectManagerService = ProjectManagerService.shared
+
+    
+    init() {
+        ProjectManagerService.shared.loadDataAtLaunch()
+    }
+       
     var body: some Scene {
         WindowGroup {
             ContentView()
-        }.windowStyle(HiddenTitleBarWindowStyle())
+                .alert(alertManager.title, isPresented: $alertManager.isOn) {
+                    TextField(alertManager.placeHolder, text: $alertManager.text)
+                        .onSubmit {
+                        
+                        }
+                    Button(alertManager.actionText, role: .cancel) { }
+               }
+               .environmentObject(alertManager)
+               .environmentObject(projectManagerService)
+        }
+        .windowStyle(HiddenTitleBarWindowStyle())
+       
     }
 }

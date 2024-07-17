@@ -5,14 +5,64 @@ struct TreeNode: Identifiable {
     var name: String
     let isParent: Bool
     let isNewNode: Bool = false
-    @State var children: [TreeNode]? = nil
+    var children: [TreeNode]? = nil
+    
+    mutating func addNewNode(name : String) {
+        let newNode = TreeNode(name: self.getCorrectChildName(input: name), isParent: false)
+           if var currentChildren = children {
+               currentChildren.append(newNode)
+               children = currentChildren
+           } else {
+               children = [newNode]
+           }
+    }
+    
+    private func getCorrectChildName(input: String) -> String {
+        if self.name == "Unit Test" {
+            return input.hasSuffix(".js") ? input : input + ".js"
+        } else {
+            return input.hasSuffix(".sql") ? input : input + ".sql"
+        }
+    }
+
+ 
 }
 
 struct TreeView: View {
     @State private var isAddingNode = false
     @State private var newNodeName = ""
+    
+    @State private var isFromUnitTestParent = false
+    
+    @EnvironmentObject var alertManager: AlertManager
 
-    @State var nodes: [TreeNode]
+    
+    @State private var nodes: [TreeNode] = [
+           TreeNode(name: "Unit Test", isParent: true, children: [
+               TreeNode(name: "TestTableUser.js", isParent: false),
+               TreeNode(name: "TestTableProduct.js", isParent: false)
+           ]),
+           TreeNode(name: "SQL Command", isParent: true, children: [
+               TreeNode(name: "GetUserByID.sql", isParent: false),
+               TreeNode(name: "GetUserByName.sql", isParent: false)
+           ])
+       ]
+
+    private func addNewNode(name: String) {
+        if isFromUnitTestParent {
+            nodes[0].addNewNode(name: name)
+        } else {
+            nodes[1].addNewNode(name: name)
+        }
+    }
+    
+    private func openAlert(node: TreeNode) {
+        isFromUnitTestParent = node.name == "Unit Test"
+        alertManager.title = isFromUnitTestParent ? "New unit test" : "New SQL comand"
+        alertManager.placeHolder = isFromUnitTestParent ? "TestTableCustomer.js" : "GetUserByID.sql"
+        alertManager.fromWho = "LeftPanelView"
+        alertManager.isOn = true
+    }
     
     var body: some View {
         List(nodes, children: \.children) { node in
@@ -37,34 +87,51 @@ struct TreeView: View {
                 Spacer()
                 if node.isParent {
                     Button(action: {
-                    
+                        openAlert(node: node)
                     }) {
                         Image(systemName: "plus.circle")
                     }
                     .buttonStyle(PlainButtonStyle())
                 }
             }
-            
             .padding(.leading, 4)
+        }.onChange(of: alertManager.isOn) {
+            if !alertManager.text.isEmpty && alertManager.fromWho == "LeftPanelView" {
+                addNewNode(name: alertManager.text)
+                alertManager.reset()
+            }
         }
     }
+    
+    
+    
 }
 
 struct LeftPanelView: View {
-    @State private var data: [TreeNode] = [
-        TreeNode(name: "Unit Test", isParent: true, children: [
-            TreeNode(name: "TestTableUser.js", isParent: false),
-            TreeNode(name: "TestTableProduct.js", isParent: false)
-        ]),
-        TreeNode(name: "SQL Command", isParent: true, children: [
-            TreeNode(name: "GetUserByID.sql", isParent: false),
-            TreeNode(name: "GetUserByName.sql", isParent: false)
-        ])
-    ]
+    @State private var isHistoryVisible : Bool = false
+    
     
     var body: some View {
         VStack {
-            TreeView(nodes: data)
+            HStack(spacing: 25) {
+                Text("Treeview")
+                    .foregroundColor(!isHistoryVisible ? Color.white : Color.gray)
+                    .onTapGesture {
+                        isHistoryVisible.toggle()
+                    }
+                    
+                
+                Text("History")
+                    .foregroundColor(isHistoryVisible ? Color.white : Color.gray)
+                    .onTapGesture {
+                        isHistoryVisible.toggle()
+                    }
+            
+            }
+            .frame(height: 20)
+            
+            
+            TreeView()
         }
     }
 }
