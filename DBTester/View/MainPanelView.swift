@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MainPanelView: View {
+        
     var body: some View {
         GeometryReader { geometry in
             VStack(spacing: 0) {

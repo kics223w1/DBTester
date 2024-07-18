@@ -10,6 +10,7 @@ import SwiftUI
 @main
 struct DBTesterApp: App {
     @StateObject var alertManager = AlertManager()
+    @StateObject var environmentString = EnvironmentString()
     @StateObject var projectManagerService = ProjectManagerService.shared
 
     
@@ -28,7 +29,14 @@ struct DBTesterApp: App {
                     Button(alertManager.actionText, role: .cancel) { }
                }
                .environmentObject(alertManager)
+               .environmentObject(environmentString)
                .environmentObject(projectManagerService)
+        }
+        .windowStyle(HiddenTitleBarWindowStyle())
+        
+        
+        WindowGroup(id : "Ollama") {
+          OllamaView()
         }
         .windowStyle(HiddenTitleBarWindowStyle())
        

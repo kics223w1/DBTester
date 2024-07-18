@@ -13,6 +13,11 @@
 		C82CB2372C3691CA007657BE /* ProjectManagerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82CB2362C3691CA007657BE /* ProjectManagerService.swift */; };
 		C82CB2392C369C44007657BE /* ConnectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82CB2382C369C44007657BE /* ConnectionModel.swift */; };
 		C83A0D0D2C47D7D600E7269D /* FileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C83A0D0C2C47D7D600E7269D /* FileModel.swift */; };
+		C83A0D0F2C47DF7600E7269D /* TreeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C83A0D0E2C47DF7600E7269D /* TreeNode.swift */; };
+		C83A0D112C47DF9400E7269D /* TreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C83A0D102C47DF9400E7269D /* TreeView.swift */; };
+		C83A0D132C47EDA800E7269D /* EnvironmentString.swift in Sources */ = {isa = PBXBuildFile; fileRef = C83A0D122C47EDA800E7269D /* EnvironmentString.swift */; };
+		C84CD7CC2C490BBF00B549DD /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CD7CB2C490BBF00B549DD /* HistoryView.swift */; };
+		C84CD7CE2C490BC700B549DD /* OllamaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CD7CD2C490BC700B549DD /* OllamaView.swift */; };
 		C8838F9E2C385F5C00083EAE /* DialogInputText.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8838F9D2C385F5C00083EAE /* DialogInputText.swift */; };
 		C8838FA22C3866F200083EAE /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8838FA12C3866F200083EAE /* AlertManager.swift */; };
 		C8D897F12C3072F000277410 /* DBTesterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D897F02C3072F000277410 /* DBTesterApp.swift */; };
@@ -51,6 +56,11 @@
 		C82CB2362C3691CA007657BE /* ProjectManagerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerService.swift; sourceTree = "<group>"; };
 		C82CB2382C369C44007657BE /* ConnectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionModel.swift; sourceTree = "<group>"; };
 		C83A0D0C2C47D7D600E7269D /* FileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileModel.swift; sourceTree = "<group>"; };
+		C83A0D0E2C47DF7600E7269D /* TreeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeNode.swift; sourceTree = "<group>"; };
+		C83A0D102C47DF9400E7269D /* TreeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeView.swift; sourceTree = "<group>"; };
+		C83A0D122C47EDA800E7269D /* EnvironmentString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentString.swift; sourceTree = "<group>"; };
+		C84CD7CB2C490BBF00B549DD /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		C84CD7CD2C490BC700B549DD /* OllamaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OllamaView.swift; sourceTree = "<group>"; };
 		C8838F9D2C385F5C00083EAE /* DialogInputText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogInputText.swift; sourceTree = "<group>"; };
 		C8838FA12C3866F200083EAE /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		C8D897ED2C3072F000277410 /* DBTester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DBTester.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -101,6 +111,8 @@
 				C82CB2382C369C44007657BE /* ConnectionModel.swift */,
 				C8838FA12C3866F200083EAE /* AlertManager.swift */,
 				C83A0D0C2C47D7D600E7269D /* FileModel.swift */,
+				C83A0D0E2C47DF7600E7269D /* TreeNode.swift */,
+				C83A0D122C47EDA800E7269D /* EnvironmentString.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -190,6 +202,9 @@
 				C8D898202C307EDE00277410 /* BottomMainPanelView.swift */,
 				C819472C2C34604E00403CAF /* TopMainPanelView.swift */,
 				C81E2E0F2C35884100728F3A /* TopNavigationBar.swift */,
+				C83A0D102C47DF9400E7269D /* TreeView.swift */,
+				C84CD7CB2C490BBF00B549DD /* HistoryView.swift */,
+				C84CD7CD2C490BC700B549DD /* OllamaView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -324,18 +339,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C83A0D112C47DF9400E7269D /* TreeView.swift in Sources */,
 				C819472D2C34604E00403CAF /* TopMainPanelView.swift in Sources */,
+				C84CD7CE2C490BC700B549DD /* OllamaView.swift in Sources */,
 				C8D897F32C3072F000277410 /* ContentView.swift in Sources */,
 				C82CB2372C3691CA007657BE /* ProjectManagerService.swift in Sources */,
 				C8D8981D2C30737100277410 /* LeftPanelView.swift in Sources */,
 				C81E2E102C35884100728F3A /* TopNavigationBar.swift in Sources */,
 				C8838FA22C3866F200083EAE /* AlertManager.swift in Sources */,
 				C82CB2392C369C44007657BE /* ConnectionModel.swift in Sources */,
+				C83A0D0F2C47DF7600E7269D /* TreeNode.swift in Sources */,
 				C8838F9E2C385F5C00083EAE /* DialogInputText.swift in Sources */,
 				C8D8981F2C30739C00277410 /* MainPanelView.swift in Sources */,
 				C83A0D0D2C47D7D600E7269D /* FileModel.swift in Sources */,
 				C81E2E132C35922600728F3A /* ProjectModel.swift in Sources */,
 				C8D898212C307EDE00277410 /* BottomMainPanelView.swift in Sources */,
+				C83A0D132C47EDA800E7269D /* EnvironmentString.swift in Sources */,
+				C84CD7CC2C490BBF00B549DD /* HistoryView.swift in Sources */,
 				C8D897F12C3072F000277410 /* DBTesterApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

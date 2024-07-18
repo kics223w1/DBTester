@@ -117,4 +117,22 @@ class ProjectManagerService : ObservableObject {
     
         return savePath
     }
+    
+    func getUnitTestFilePath(fileName : String) -> String {
+        let appSupportDir = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
+        let projectDir = appSupportDir.appendingPathComponent(self.selectedProjectModel.name, isDirectory: true)
+        let unitTestDir =  projectDir.appendingPathComponent("Unit Test", isDirectory: true)
+        let filePath = unitTestDir.appendingPathComponent(fileName)
+
+        return filePath.path
+    }
+    
+    func getSQLCommandFilePath(fileName : String) -> String {
+        let appSupportDir = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
+        let projectDir = appSupportDir.appendingPathComponent(self.selectedProjectModel.name, isDirectory: true)
+        let sqlCommandDir =  projectDir.appendingPathComponent("SQl Command", isDirectory: true)
+        let filePath = sqlCommandDir.appendingPathComponent(fileName)
+
+        return filePath.path
+    }
 }

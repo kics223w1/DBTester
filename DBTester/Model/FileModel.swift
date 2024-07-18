@@ -7,23 +7,15 @@
 
 import Foundation
 
-struct FileModel: Identifiable, Codable {
-    let id: UUID
-    let name: String
+struct FileModel {
     
-    init(name : String, folderPath : String) {
-        self.id = UUID()
-        self.name = name
-        self.createFileInFolderPath(folderPath: folderPath)
+    static func isUnitTest(name : String) -> Bool {
+        return name.hasSuffix(".js")
     }
     
-    func isUnitTest() -> Bool {
-        return self.name.hasSuffix(".js")
-    }
-    
-    private func createFileInFolderPath(folderPath : String) {
+    static func createFileInFolderPath( name : String,folderPath : String) {
         let fileManager = FileManager.default
-        let filePath = (folderPath as NSString).appendingPathComponent(self.name)
+        let filePath = (folderPath as NSString).appendingPathComponent(name)
         if !fileManager.fileExists(atPath: filePath) {
             let fileContents = ""
             let fileURL = URL(fileURLWithPath: filePath)

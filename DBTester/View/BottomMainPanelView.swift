@@ -1,40 +1,64 @@
 import SwiftUI
 
 struct BottomMainPanelView: View {
-    @State private var selectedTab: String = "Tab1"
-    @State private var tab1Text: String = "Content for Tab 1"
-    @State private var tab2Text: String = "Content for Tab 2"
+    @State private var content: String = ""
+    @State private var debounceWorkItem: DispatchWorkItem?
+
+    @EnvironmentObject var environmentString : EnvironmentString
+    @EnvironmentObject var projectManagerService: ProjectManagerService
+
+    
+    private func loadContentFromFile() {
+        let filePath = projectManagerService.getSQLCommandFilePath(fileName: environmentString.selectedTabBottomMainPanelName)
+        
+        do {
+            let fileContent = try String(contentsOfFile: filePath, encoding: .utf8)
+            content = fileContent
+        } catch {
+            print("Failed to read file: \(error.localizedDescription)")
+            content = ""
+        }
+    }
+    
+    private func saveContentToFile() {
+        let filePath = projectManagerService.getSQLCommandFilePath(fileName: environmentString.selectedTabBottomMainPanelName)
+
+        do {
+            try content.write(toFile: filePath, atomically: true, encoding: .utf8)
+        } catch {
+            print("Failed to write file: \(error.localizedDescription)")
+        }
+    }
+    
+    private func debounceSaveContentToFile() {
+        // Cancel the previous work item if it exists
+        debounceWorkItem?.cancel()
+
+        // Create a new work item
+        let newWorkItem = DispatchWorkItem {
+            saveContentToFile()
+        }
+
+        // Schedule the work item with a 200ms delay
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: newWorkItem)
+        debounceWorkItem = newWorkItem
+    }
     
     var body: some View {
         GeometryReader { geometry in
             VStack(spacing: 0) {
-               
-                
                 HStack {
                     HStack(spacing: 0) {
                         Button(action: {
-                            selectedTab = "Tab1"
+                           
                         }) {
-                            Text("Tab 1")
+                            Text(environmentString.selectedTabBottomMainPanelName.dropLast(4))
                                 .frame(width: geometry.size.width * 0.3, height: 30)
                                 .cornerRadius(0)
                         }
                         .frame(width: geometry.size.width * 0.3, height: 30)
                         .cornerRadius(0)
                         .border(Color.black,  width: 0.5)
- 
-                        
-                        Button(action: {
-                            selectedTab = "Tab2"
-                        }) {
-                            Text("Tab 2")
-                                .frame(width: geometry.size.width * 0.3, height: 30)
-                                .cornerRadius(0)
-                        }
-                        .frame(width: geometry.size.width * 0.3, height: 30)
-                        .cornerRadius(0)
-                        .border(Color.black, width: 0.5)
-                        .background(selectedTab == "Tab2" ? Color.gray.opacity(0.2) : Color.black)
                     }
                     .frame(width: geometry.size.width * 0.6, height: 30, alignment: .leading)
                     
@@ -46,16 +70,19 @@ struct BottomMainPanelView: View {
                 .frame(width: geometry.size.width, height: 30)
                
                 
-                // Text editor for the selected tab
-                if selectedTab == "Tab1" {
-                    TextEditor(text: $tab1Text)
-                } else if selectedTab == "Tab2" {
-                    TextEditor(text: $tab2Text)
-                }
+                TextEditor(text: $content)
             }
             .frame(width: geometry.size.width, height: geometry.size.height)
             .alignmentGuide(.leading) { _ in 0 } // Aligns VStack to the leading edge of its parent
-            
+        }
+        .onChange(of: environmentString.selectedTabBottomMainPanelName) {
+            self.loadContentFromFile()
+        }
+        .onChange(of: projectManagerService.selectedProjectModel.name) {
+            self.loadContentFromFile()
+        }
+        .onChange(of: content) {
+            self.saveContentToFile()
         }
     }
 }
