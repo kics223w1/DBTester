@@ -14,9 +14,10 @@ struct DBTesterApp: App {
     @StateObject var projectManagerService = ProjectManagerService.shared
 
     
-    init() {
+    init()  {
         ProjectManagerService.shared.loadDataAtLaunch()
     }
+
        
     var body: some Scene {
         WindowGroup {

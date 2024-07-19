@@ -42,8 +42,14 @@ struct LeftPanelView: View {
             } else {
                 HistoryView()
             }
-            
         }
+        .onAppear {
+                    Task {
+                        let core = DBTesterCore()
+                        core.runSample()
+                        await core.connectDatabase()
+                    }
+                }
     }
 }
 
