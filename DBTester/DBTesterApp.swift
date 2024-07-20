@@ -12,6 +12,7 @@ struct DBTesterApp: App {
     @StateObject var alertManager = AlertManager()
     @StateObject var environmentString = EnvironmentString()
     @StateObject var projectManagerService = ProjectManagerService.shared
+    @StateObject var jsCore = JSCore.shared
 
     
     init()  {
@@ -32,6 +33,7 @@ struct DBTesterApp: App {
                .environmentObject(alertManager)
                .environmentObject(environmentString)
                .environmentObject(projectManagerService)
+               .environmentObject(jsCore)
         }
         .windowStyle(HiddenTitleBarWindowStyle())
         

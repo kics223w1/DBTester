@@ -9,10 +9,15 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        NavigationView {
-            LeftPanelView()
-            MainPanelView()
-        }
+        VStack {
+            TopNavigationBar()
+            NavigationView {
+                LeftPanelView()
+                    .frame(width: 250)
+                MainPanelView()
+            }
+            .offset(y: -8)
+        }.ignoresSafeArea()
     }
 }
 

@@ -119,20 +119,29 @@ class ProjectManagerService : ObservableObject {
     }
     
     func getUnitTestFilePath(fileName : String) -> String {
-        let appSupportDir = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
-        let projectDir = appSupportDir.appendingPathComponent(self.selectedProjectModel.name, isDirectory: true)
-        let unitTestDir =  projectDir.appendingPathComponent("Unit Test", isDirectory: true)
+        let unitTestDir =  self.getUnitTestFolderPath()
         let filePath = unitTestDir.appendingPathComponent(fileName)
-
         return filePath.path
     }
     
     func getSQLCommandFilePath(fileName : String) -> String {
-        let appSupportDir = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
-        let projectDir = appSupportDir.appendingPathComponent(self.selectedProjectModel.name, isDirectory: true)
-        let sqlCommandDir =  projectDir.appendingPathComponent("SQl Command", isDirectory: true)
+        let sqlCommandDir = self.getSQLCommandFolderPath()
         let filePath = sqlCommandDir.appendingPathComponent(fileName)
-
         return filePath.path
+    }
+    
+    func getProjecetFolderPath() -> URL {
+        let appSupportDir = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
+        return appSupportDir.appendingPathComponent(self.selectedProjectModel.name, isDirectory: true)
+    }
+    
+    func getSQLCommandFolderPath() -> URL  {
+        let projectDir = self.getProjecetFolderPath()
+        return projectDir.appendingPathComponent("SQL Command", isDirectory: true)
+    }
+    
+    func getUnitTestFolderPath() -> URL {
+        let projectDir = self.getProjecetFolderPath()
+        return projectDir.appendingPathComponent("Unit Test", isDirectory: true)
     }
 }

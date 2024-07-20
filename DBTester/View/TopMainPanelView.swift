@@ -11,12 +11,15 @@ import Combine
 struct TopMainPanelView: View {
     @State private var content: String = ""
     @State private var debounceWorkItem: DispatchWorkItem?
+    
+    @State private var isUnitTest : Bool = true
 
     @EnvironmentObject var environmentString: EnvironmentString
     @EnvironmentObject var projectManagerService: ProjectManagerService
+    @EnvironmentObject var jsCore: JSCore
 
     private func loadContentFromFile() {
-        let filePath = projectManagerService.getUnitTestFilePath(fileName: environmentString.selectedTabTopMainPanelName)
+        let filePath = self.getFilePath()
 
         do {
             let fileContent = try String(contentsOfFile: filePath, encoding: .utf8)
@@ -28,13 +31,17 @@ struct TopMainPanelView: View {
     }
 
     private func saveContentToFile() {
-        let filePath = projectManagerService.getUnitTestFilePath(fileName: environmentString.selectedTabTopMainPanelName)
+        let filePath = self.getFilePath()
 
         do {
             try content.write(toFile: filePath, atomically: true, encoding: .utf8)
         } catch {
             print("Failed to write file: \(error.localizedDescription)")
         }
+    }
+    
+    private func getFilePath() -> String {
+        return isUnitTest ? projectManagerService.getUnitTestFilePath(fileName: environmentString.selectedTabTopMainPanelName) : projectManagerService.getSQLCommandFilePath(fileName: environmentString.selectedTabBottomMainPanelName)
     }
     
     private func debounceSaveContentToFile() {
@@ -51,45 +58,99 @@ struct TopMainPanelView: View {
         debounceWorkItem = newWorkItem
     }
 
+    
+    private func runTest() {
+        let comamnds2 : [String] = jsCore.getSQLCommands(script: content)
+        print("comamnd: \(comamnds2)")
+    }
+    
+    private func openFolderInVSCode() {
+        let folderPath = projectManagerService.getProjecetFolderPath().path
+        let quotedFolderPath = "\"\(folderPath)\""
+        
+        print(quotedFolderPath)
+        
+        let process = Process()
+        process.executableURL = URL(fileURLWithPath: "/usr/local/bin/code")
+        process.arguments = [quotedFolderPath]
+    
+        do {
+            try process.run()
+        } catch {
+            print("Failed to open folder in VS Code: \(error)")
+        }
+    }
 
     var body: some View {
-        GeometryReader { geometry in
-            VStack(spacing: 0) {
-                HStack {
-                    HStack(spacing: 0) {
-                        Button(action: {
-                        }) {
-                            Text(environmentString.selectedTabTopMainPanelName.dropLast(3))
-                                .frame(width: geometry.size.width * 0.3, height: 30)
-                                .cornerRadius(0)
-                        }
-                        .frame(width: geometry.size.width * 0.3, height: 30)
-                        .cornerRadius(0)
-                        .border(Color.black, width: 0.5)
+        VStack(alignment: .leading) {
+                HStack(spacing: 0) {
+                    Button(action: {
+                        isUnitTest.toggle()
+                    }) {
+                        Text("JS")
+                            .foregroundColor(.yellow)
+                            .fontWeight(.bold)
+                        Text(environmentString.selectedTabTopMainPanelName.dropLast(3))
+                            .frame(height: 30)
+                            
                     }
-                    .frame(width: geometry.size.width * 0.6, height: 30, alignment: .leading)
+                    .background(
+                        isUnitTest ? Color(red: 0.2, green: 0.2, blue: 0.2) : Color.black
+                    )
+                    
+                    Button(action: {
+                        isUnitTest.toggle()
+                    }) {
+                        Text("SQL")
+                            .foregroundColor(.green)
+                            .fontWeight(.bold)
+                        Text(environmentString.selectedTabBottomMainPanelName.dropLast(4))
+                            .frame(height: 30)
 
-                    HStack {
-                        
                     }
-                    .frame(width: geometry.size.width * 0.4, height: 30)
+                    .background(
+                        !isUnitTest ? Color(red: 0.2, green: 0.2, blue: 0.2): Color.black
+                    )
+                    
+                    
+                    Button {
+                        self.runTest()
+                    } label: {
+                        Text("Run test")
+                    }
+                    .frame(minHeight: 35)
+                    .buttonStyle(.borderedProminent)
+                    .padding(.leading, 100)
+                    
+                    Button {
+                        self.openFolderInVSCode()
+                    } label: {
+                        Text("Edit in VSCode")
+                    }
+                    .frame(minHeight: 35)
+               
                 }
-                .frame(width: geometry.size.width, height: 30)
+                .frame(height: 30)
 
                 // Text editor for the selected tab
                 TextEditor(text: $content)
             }
-            .frame(width: geometry.size.width, height: geometry.size.height)
-        }
-        .onChange(of: environmentString.selectedTabTopMainPanelName) {
-            self.loadContentFromFile()
-        }
-        .onChange(of: projectManagerService.selectedProjectModel.name) {
-            self.loadContentFromFile()
-        }
-        .onChange(of: content) {
-            self.saveContentToFile()
-        }
+            .ignoresSafeArea()
+            .onChange(of: environmentString.selectedTabTopMainPanelName) {
+                self.loadContentFromFile()
+            }
+            .onChange(of: environmentString.selectedTabBottomMainPanelName) {
+                self.loadContentFromFile()
+            }
+            .onChange(of: isUnitTest) {
+                self.loadContentFromFile()
+            }
+            .onChange(of: projectManagerService.selectedProjectModel.name) {
+                self.loadContentFromFile()
+            }
+            .onChange(of: content) {
+                self.saveContentToFile()
+            }
     }
 }
 
