@@ -107,11 +107,11 @@ struct TreeView: View {
                     Image(systemName: "folder")
                         .padding(.trailing, 8)
                 } else if node.name.hasSuffix(".js") {
-                    Image(systemName: "doc.text")
+                    Text("JS")
                         .foregroundColor(.yellow)
                 } else if node.name.hasSuffix(".sql") {
-                    Image(systemName: "doc.richtext")
-                        .foregroundColor(.blue)
+                    Text("SQL")
+                        .foregroundColor(.green)
                 } else {
                     Image(systemName: "questionmark")
                         .foregroundColor(.gray)

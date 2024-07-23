@@ -1,12 +1,5 @@
 import Foundation
 
-// Define CodingKeys for the properties
-enum CodingKeys: String, CodingKey {
-    case id
-    case savePath
-    case name
-}
-
 struct ProjectModel: Identifiable, Codable {
     let id: UUID
     let name: String
@@ -63,4 +56,10 @@ struct ProjectModel: Identifiable, Codable {
         try container.encode(name, forKey: .name)
     }
 
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case savePath
+        case name
+    }
 }

@@ -11,7 +11,6 @@ import Combine
 struct TopMainPanelView: View {
     @State private var content: String = ""
     @State private var debounceWorkItem: DispatchWorkItem?
-    
     @State private var isUnitTest : Bool = true
 
     @EnvironmentObject var environmentString: EnvironmentString

@@ -17,7 +17,10 @@ struct ContentView: View {
                 MainPanelView()
             }
             .offset(y: -8)
-        }.ignoresSafeArea()
+        }
+        .previewLayout(.sizeThatFits)
+        .background(Color(white: 0.1))
+        .ignoresSafeArea()
     }
 }
 

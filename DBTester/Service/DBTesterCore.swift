@@ -2,8 +2,9 @@ import Foundation
 import JavaScriptCore
 import NIO
 import PostgresNIO
+import PostgresClientKit
 
-class DBTesterCore {
+class DBTesterCore : ObservableObject {
 
     // A context for running JavaScript code
     private var jsContext: JSContext?
@@ -21,39 +22,33 @@ class DBTesterCore {
     }
     
     func connectDatabase() async {
-        let config = PostgresClient.Configuration(
-          host: "localhost",
-          port: 5432,
-          username: "caohuy",
-          password: "caohuy",
-          database: "caohuy",
-          tls: .disable
-        )
-        
-        let client = PostgresClient(configuration: config)
         
         do {
-            try await withThrowingTaskGroup(of: Void.self) { taskGroup in
-                taskGroup.addTask {
-                    await client.run() // !important
-                }
-                
-                let rows = try await client.query("""
-                    SELECT * FROM "user"
-                    """)
+            var configuration = PostgresClientKit.ConnectionConfiguration()
+            configuration.host = "localhost"
+            configuration.database = "caohuy"
+            configuration.user = "caohuy1"
+            configuration.credential = Credential.trust
+            configuration.ssl = false
+//            configuration.credential = Credential.cleartextPassword(password: String)
 
-//                for try await row in rows {
-//                    print("huy ne \(row)")
-//                }
-                
-                for try await (id, name) in rows.decode((String, String).self) {
-                    print("huy ne \(id) \(name)")
-                }
-                
-                
+            let connection = try PostgresClientKit.Connection(configuration: configuration)
+//            defer { connection.close() }
+            print("huy voa ne")
+
+            let text =  #"SELECT * FROM "user""#
+            let statement = try connection.prepareStatement(text: text)
+            defer { statement.close() }
+
+            let cursor = try statement.execute(parameterValues: [])
+            defer { cursor.close() }
+
+            for row in cursor {
+                let columns = try row.get().columns
+              print("row: " , columns)
             }
-        }catch {
-            print("error ne \(error)")
+        } catch {
+            print(error) // better error handling goes here
         }
         
         

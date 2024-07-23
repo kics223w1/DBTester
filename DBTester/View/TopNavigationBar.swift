@@ -6,6 +6,7 @@ struct TopNavigationBar: View {
     @EnvironmentObject var projectManagerService: ProjectManagerService
 
     @State private var isPopoverShowing = false
+    @State private var isPopoverConnectionVisible = false
 
     
 
@@ -18,6 +19,13 @@ struct TopNavigationBar: View {
                 .cornerRadius(4)
                 .padding(.leading, 60)
                 .padding(.vertical, 10)
+                .popover(isPresented: self.$isPopoverConnectionVisible, arrowEdge: .bottom) {
+                    PopoverConnection(isPopoverVisible: self.$isPopoverConnectionVisible)
+                }
+                .onTapGesture {
+                    self.isPopoverConnectionVisible.toggle()
+                }
+            
             
             HStack {
                 Button {

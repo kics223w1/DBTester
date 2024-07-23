@@ -9,6 +9,7 @@ struct LeftPanelView: View {
     @State private var selectedTab : Tab = Tab.treeView
     @Environment(\.openWindow) private var openWindow
     
+    
     var body: some View {
         VStack {
             HStack(spacing: 25) {
@@ -35,6 +36,7 @@ struct LeftPanelView: View {
                     }
             }
             .frame(height: 20)
+          
             
             
             if selectedTab == Tab.treeView {

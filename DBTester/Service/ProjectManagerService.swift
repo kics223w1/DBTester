@@ -10,14 +10,12 @@ import Foundation
 class ProjectManagerService : ObservableObject {
     static let shared = ProjectManagerService()
     
-    @Published var selectedConnectionModel: ConnectionModel
     @Published var selectedProjectModel: ProjectModel
     @Published var projectModels: [ProjectModel]
     
     private init() {
         let defaultProject = ProjectModel.initDefault()
         
-        self.selectedConnectionModel = ConnectionModel.initDefault()
         self.selectedProjectModel = defaultProject
         self.projectModels = [defaultProject]
     }
@@ -46,21 +44,17 @@ class ProjectManagerService : ObservableObject {
         do {
             // Encode the selected models
             let jsonSelectedProjectModel = try jsonEncoder.encode(selectedProjectModel)
-            let jsonSelectedConnectionModel = try jsonEncoder.encode(selectedConnectionModel)
             let jsonProjectModels = try jsonEncoder.encode(projectModels)
 
             // Convert to string for debugging (optional)
             let jsonSelectedProjectModelString = String(data: jsonSelectedProjectModel, encoding: .utf8)
-            let jsonSelectedConnectionModelString = String(data: jsonSelectedConnectionModel, encoding: .utf8)
             let jsonProjectModelsString = String(data: jsonProjectModels, encoding: .utf8)
             
             print("Encoded selected project model: \(jsonSelectedProjectModelString ?? "")")
-            print("Encoded selected connection model: \(jsonSelectedConnectionModelString ?? "")")
             print("Encoded project models: \(jsonProjectModelsString ?? "")")
             
             // Create a dictionary to hold all encoded data
             var dataDict = [String: Any]()
-            dataDict["selectedConnectionModel"] = String(data: jsonSelectedConnectionModel, encoding: .utf8)!
             dataDict["selectedProjectModel"] = String(data: jsonSelectedProjectModel, encoding: .utf8)!
             dataDict["projectModels"] = String(data: jsonProjectModels, encoding: .utf8)!
             
@@ -84,12 +78,6 @@ class ProjectManagerService : ObservableObject {
             
             // Decode the data into a dictionary
             if let jsonDict = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any] {
-                // Decode selected connection model
-                if let selectedConnectionModelString = jsonDict["selectedConnectionModel"] as? String {
-                    let jsonData = Data(selectedConnectionModelString.utf8)
-                    self.selectedConnectionModel = try jsonDecoder.decode(ConnectionModel.self, from: jsonData)
-                }
-                
                 // Decode selected project model
                 if let selectedProjectModelString = jsonDict["selectedProjectModel"] as? String {
                     let jsonData = Data(selectedProjectModelString.utf8)
