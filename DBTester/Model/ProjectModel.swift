@@ -25,10 +25,8 @@ struct ProjectModel: Identifiable, Codable {
             try FileManager.default.createDirectory(at: unitTestDir, withIntermediateDirectories: true, attributes: nil)
             try FileManager.default.createDirectory(at: sqlCommandDir, withIntermediateDirectories: true, attributes: nil)
 
-            FileModel.createFileInFolderPath(name: "TestTableUser.js" , folderPath: unitTestDir.path)
-            FileModel.createFileInFolderPath(name: "TestTableProduct.js" , folderPath: unitTestDir.path)
+            FileModel.createFileInFolderPath(name: "TestTableEmployees.js" , folderPath: unitTestDir.path)
             FileModel.createFileInFolderPath(name: "GetUserByID.sql" , folderPath: sqlCommandDir.path)
-            FileModel.createFileInFolderPath(name: "GetUserByName.sql" , folderPath: sqlCommandDir.path)
             
         } catch {
             fatalError("Failed to create directory: \(error.localizedDescription)")

@@ -12,6 +12,7 @@
 		C81E2E132C35922600728F3A /* ProjectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81E2E122C35922600728F3A /* ProjectModel.swift */; };
 		C82CB2372C3691CA007657BE /* ProjectManagerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82CB2362C3691CA007657BE /* ProjectManagerService.swift */; };
 		C82CB2392C369C44007657BE /* ConnectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82CB2382C369C44007657BE /* ConnectionModel.swift */; };
+		C83478A32C50E5540063990B /* CodeEditor in Frameworks */ = {isa = PBXBuildFile; productRef = C83478A22C50E5540063990B /* CodeEditor */; };
 		C83A0D0D2C47D7D600E7269D /* FileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C83A0D0C2C47D7D600E7269D /* FileModel.swift */; };
 		C83A0D0F2C47DF7600E7269D /* TreeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C83A0D0E2C47DF7600E7269D /* TreeNode.swift */; };
 		C83A0D112C47DF9400E7269D /* TreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C83A0D102C47DF9400E7269D /* TreeView.swift */; };
@@ -32,6 +33,7 @@
 		C868B6372C4BB8FB001B4274 /* PopoverProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C868B6362C4BB8FB001B4274 /* PopoverProject.swift */; };
 		C8838F9E2C385F5C00083EAE /* DialogInputText.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8838F9D2C385F5C00083EAE /* DialogInputText.swift */; };
 		C8838FA22C3866F200083EAE /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8838FA12C3866F200083EAE /* AlertManager.swift */; };
+		C883A0EC2C5238DF006897FA /* TemplateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C883A0EB2C5238DF006897FA /* TemplateService.swift */; };
 		C8D897F12C3072F000277410 /* DBTesterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D897F02C3072F000277410 /* DBTesterApp.swift */; };
 		C8D897F32C3072F000277410 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D897F22C3072F000277410 /* ContentView.swift */; };
 		C8D897F52C3072F100277410 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C8D897F42C3072F100277410 /* Assets.xcassets */; };
@@ -84,6 +86,7 @@
 		C868B6362C4BB8FB001B4274 /* PopoverProject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverProject.swift; sourceTree = "<group>"; };
 		C8838F9D2C385F5C00083EAE /* DialogInputText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogInputText.swift; sourceTree = "<group>"; };
 		C8838FA12C3866F200083EAE /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
+		C883A0EB2C5238DF006897FA /* TemplateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateService.swift; sourceTree = "<group>"; };
 		C8D897ED2C3072F000277410 /* DBTester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DBTester.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8D897F02C3072F000277410 /* DBTesterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBTesterApp.swift; sourceTree = "<group>"; };
 		C8D897F22C3072F000277410 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -105,6 +108,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C83478A32C50E5540063990B /* CodeEditor in Frameworks */,
 				C84CD7D82C4A54A700B549DD /* _ConnectionPoolModule in Frameworks */,
 				C848E4BA2C4D70A90055B27E /* PostgresClientKit in Frameworks */,
 				C84CD7D62C4A54A700B549DD /* PostgresNIO in Frameworks */,
@@ -148,6 +152,7 @@
 				C84CD7CF2C49404500B549DD /* DBTesterCore.swift */,
 				C868B6342C4BAC88001B4274 /* JSCore.swift */,
 				C848E4B32C4D35F80055B27E /* ConnectionService.swift */,
+				C883A0EB2C5238DF006897FA /* TemplateService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -302,6 +307,7 @@
 				C84CD7D52C4A54A700B549DD /* PostgresNIO */,
 				C84CD7D72C4A54A700B549DD /* _ConnectionPoolModule */,
 				C848E4B92C4D70A90055B27E /* PostgresClientKit */,
+				C83478A22C50E5540063990B /* CodeEditor */,
 			);
 			productName = DBTester;
 			productReference = C8D897ED2C3072F000277410 /* DBTester.app */;
@@ -379,6 +385,7 @@
 				C84CD7D12C497C3500B549DD /* XCRemoteSwiftPackageReference "postgres-kit" */,
 				C84CD7D42C4A54A700B549DD /* XCRemoteSwiftPackageReference "postgres-nio" */,
 				C848E4B82C4D70A90055B27E /* XCRemoteSwiftPackageReference "PostgresClientKit" */,
+				C83478A12C50E5540063990B /* XCRemoteSwiftPackageReference "CodeEditor" */,
 			);
 			productRefGroup = C8D897EE2C3072F000277410 /* Products */;
 			projectDirPath = "";
@@ -423,6 +430,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C83A0D112C47DF9400E7269D /* TreeView.swift in Sources */,
+				C883A0EC2C5238DF006897FA /* TemplateService.swift in Sources */,
 				C86188442C4D114300F53989 /* ConnectionWindow.swift in Sources */,
 				C861883F2C4BE14400F53989 /* PopoverConnection.swift in Sources */,
 				C868B6352C4BAC88001B4274 /* JSCore.swift in Sources */,
@@ -771,6 +779,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		C83478A12C50E5540063990B /* XCRemoteSwiftPackageReference "CodeEditor" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ZeeZide/CodeEditor.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.6;
+			};
+		};
 		C848E4B82C4D70A90055B27E /* XCRemoteSwiftPackageReference "PostgresClientKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/codewinsdotcom/PostgresClientKit";
@@ -798,6 +814,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		C83478A22C50E5540063990B /* CodeEditor */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C83478A12C50E5540063990B /* XCRemoteSwiftPackageReference "CodeEditor" */;
+			productName = CodeEditor;
+		};
 		C848E4B92C4D70A90055B27E /* PostgresClientKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = C848E4B82C4D70A90055B27E /* XCRemoteSwiftPackageReference "PostgresClientKit" */;

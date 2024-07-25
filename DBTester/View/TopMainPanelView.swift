@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import CodeEditor
 
 struct TopMainPanelView: View {
     @State private var content: String = ""
@@ -59,8 +60,7 @@ struct TopMainPanelView: View {
 
     
     private func runTest() {
-        let comamnds2 : [String] = jsCore.getSQLCommands(script: content)
-        print("comamnd: \(comamnds2)")
+        jsCore.executeScript(script: content)
     }
     
     private func openFolderInVSCode() {
@@ -132,7 +132,8 @@ struct TopMainPanelView: View {
                 .frame(height: 30)
 
                 // Text editor for the selected tab
-                TextEditor(text: $content)
+            CodeEditor(source: $content, language: .javascript, theme: .default)
+//                TextEditor(text: $content)
             }
             .ignoresSafeArea()
             .onChange(of: environmentString.selectedTabTopMainPanelName) {

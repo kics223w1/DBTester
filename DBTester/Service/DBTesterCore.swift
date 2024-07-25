@@ -27,7 +27,7 @@ class DBTesterCore : ObservableObject {
             var configuration = PostgresClientKit.ConnectionConfiguration()
             configuration.host = "localhost"
             configuration.database = "caohuy"
-            configuration.user = "caohuy1"
+            configuration.user = "caohuy"
             configuration.credential = Credential.trust
             configuration.ssl = false
 //            configuration.credential = Credential.cleartextPassword(password: String)
@@ -36,7 +36,14 @@ class DBTesterCore : ObservableObject {
 //            defer { connection.close() }
             print("huy voa ne")
 
-            let text =  #"SELECT * FROM "user""#
+            let text =  """
+SELECT
+    is_nullable, data_type, column_name
+    FROM
+    information_schema.columns
+WHERE
+table_name = 'employees';
+"""
             let statement = try connection.prepareStatement(text: text)
             defer { statement.close() }
 

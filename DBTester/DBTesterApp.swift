@@ -34,6 +34,11 @@ struct DBTesterApp: App {
                         }
                     Button(alertManager.actionText, role: .cancel) { }
                }
+                .onAppear {
+                    Task {
+                        await dbTesterCore.connectDatabase()
+                    }
+                }
                .environmentObject(alertManager)
                .environmentObject(environmentString)
                .environmentObject(projectManagerService)

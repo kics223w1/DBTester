@@ -17,7 +17,7 @@ struct FileModel {
         let fileManager = FileManager.default
         let filePath = (folderPath as NSString).appendingPathComponent(name)
         if !fileManager.fileExists(atPath: filePath) {
-            let fileContents = ""
+            let fileContents = TemplateService.shared.getDefaultForFileModel(fileName: name)
             let fileURL = URL(fileURLWithPath: filePath)
             do {
                 try fileContents.write(to: fileURL, atomically: true, encoding: .utf8)
