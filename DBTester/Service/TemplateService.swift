@@ -11,23 +11,6 @@ class TemplateService {
     
     static let shared = TemplateService()
     
-    func getAddingClass() -> String {
-        return
-"""
-class Assert {
-
-    equal(current, expected) {
-        const result = current === expected;
-        if(!result) {
-            throw new Error(`Expected ${expected} but got ${current}`)
-        }
-    }
-}
-
-const assert = new Assert();
-"""
-    }
-    
     func getDefaultForFileModel(fileName :String) -> String {
         return fileName.hasSuffix(".js") ? self.getDefaultUnitTest() : self.getDefaultSQLCommand()
     }
@@ -64,14 +47,14 @@ it("Test Column first_name" , () => {
 })
 
 
-function getColumnAttribute(tableName , columnName, key) {
+// function getColumnAttribute(tableName , columnName, key) {
     // This function execute the below command to get the
     // column attribute
 
     // const query = SELECT `${key}` FROM information_schema.columns
     // WHERE table_name = `${tableName}` AND column_name = `${columnName}`;
     // return db.query(query)
-}
+// }
 """
     }
     

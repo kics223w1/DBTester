@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C804A4712C53961A00B17F2C /* AddingClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C804A4702C53961A00B17F2C /* AddingClass.swift */; };
+		C804A4732C540A0700B17F2C /* ColumnAttributeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C804A4722C540A0700B17F2C /* ColumnAttributeModel.swift */; };
 		C819472D2C34604E00403CAF /* TopMainPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C819472C2C34604E00403CAF /* TopMainPanelView.swift */; };
 		C81E2E102C35884100728F3A /* TopNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81E2E0F2C35884100728F3A /* TopNavigationBar.swift */; };
 		C81E2E132C35922600728F3A /* ProjectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81E2E122C35922600728F3A /* ProjectModel.swift */; };
@@ -64,6 +66,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C804A4702C53961A00B17F2C /* AddingClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingClass.swift; sourceTree = "<group>"; };
+		C804A4722C540A0700B17F2C /* ColumnAttributeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnAttributeModel.swift; sourceTree = "<group>"; };
 		C819472C2C34604E00403CAF /* TopMainPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopMainPanelView.swift; sourceTree = "<group>"; };
 		C81E2E0F2C35884100728F3A /* TopNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopNavigationBar.swift; sourceTree = "<group>"; };
 		C81E2E122C35922600728F3A /* ProjectModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectModel.swift; sourceTree = "<group>"; };
@@ -141,6 +145,8 @@
 				C83A0D0C2C47D7D600E7269D /* FileModel.swift */,
 				C83A0D0E2C47DF7600E7269D /* TreeNode.swift */,
 				C83A0D122C47EDA800E7269D /* EnvironmentString.swift */,
+				C804A4702C53961A00B17F2C /* AddingClass.swift */,
+				C804A4722C540A0700B17F2C /* ColumnAttributeModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -431,6 +437,7 @@
 			files = (
 				C83A0D112C47DF9400E7269D /* TreeView.swift in Sources */,
 				C883A0EC2C5238DF006897FA /* TemplateService.swift in Sources */,
+				C804A4732C540A0700B17F2C /* ColumnAttributeModel.swift in Sources */,
 				C86188442C4D114300F53989 /* ConnectionWindow.swift in Sources */,
 				C861883F2C4BE14400F53989 /* PopoverConnection.swift in Sources */,
 				C868B6352C4BAC88001B4274 /* JSCore.swift in Sources */,
@@ -453,6 +460,7 @@
 				C8D8981F2C30739C00277410 /* MainPanelView.swift in Sources */,
 				C83A0D0D2C47D7D600E7269D /* FileModel.swift in Sources */,
 				C84CD7D02C49404500B549DD /* DBTesterCore.swift in Sources */,
+				C804A4712C53961A00B17F2C /* AddingClass.swift in Sources */,
 				C81E2E132C35922600728F3A /* ProjectModel.swift in Sources */,
 				C83A0D132C47EDA800E7269D /* EnvironmentString.swift in Sources */,
 				C84CD7CC2C490BBF00B549DD /* HistoryView.swift in Sources */,

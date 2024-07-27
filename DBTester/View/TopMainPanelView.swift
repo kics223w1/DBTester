@@ -60,7 +60,9 @@ struct TopMainPanelView: View {
 
     
     private func runTest() {
-        jsCore.executeScript(script: content)
+        let ans = jsCore.executeScript(script: content)
+        
+        print("ans: \(ans)")
     }
     
     private func openFolderInVSCode() {
