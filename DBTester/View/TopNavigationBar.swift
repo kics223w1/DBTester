@@ -8,60 +8,56 @@ struct TopNavigationBar: View {
     @State private var isPopoverShowing = false
     @State private var isPopoverConnectionVisible = false
 
+    @State private var isHoveringButton = false
     
-
     var body: some View {
-        HStack(alignment: .center, spacing: 12) {
-            Text("Local | PostgreSQL")
-                .padding(.leading, 8)
-                .frame(minWidth: 300, minHeight: 25, alignment: .leading)
-                .background(Color(red: 0.0, green: 0.5, blue: 0.0))
-                .cornerRadius(4)
-                .padding(.leading, 60)
-                .padding(.vertical, 10)
-                .popover(isPresented: self.$isPopoverConnectionVisible, arrowEdge: .bottom) {
-                    PopoverConnection(isPopoverVisible: self.$isPopoverConnectionVisible)
+        VStack {
+            HStack(alignment: .center, spacing: 10) {
+                Text("Local | PostgreSQL")
+                    .padding(.leading, 8)
+                    .frame(width: 350, height: 25, alignment: .leading)
+                    .background(Color(red: 0.0, green: 0.5, blue: 0.0))
+                    .cornerRadius(4)
+                    .popover(isPresented: self.$isPopoverConnectionVisible, arrowEdge: .bottom) {
+                        PopoverConnection(isPopoverVisible: self.$isPopoverConnectionVisible)
+                    }
+                    .onTapGesture {
+                        self.isPopoverConnectionVisible.toggle()
+                    }
+                
+                Button(action: {
+                    // Add your button action here
+                }) {
+                    Image(systemName: "cylinder.split.1x2")
                 }
-                .onTapGesture {
-                    self.isPopoverConnectionVisible.toggle()
+                .buttonStyle(BorderedButtonStyle())
+
+                Button(action: {
+                    // Add your button action here
+                }) {
+                    Image(systemName: "play.fill")
                 }
-            
-            
-            HStack {
-                Button {
-                    self.isPopoverShowing.toggle()
-                } label: {
-                    Text(projectManagerService.selectedProjectModel.name)
+                .buttonStyle(BorderedButtonStyle())
                     
-                    Image(systemName: "chevron.down")
-                        .resizable() // Make the image resizable
-                        .frame(width: 8, height: 6)
-                }
-                .frame(minHeight: 35)
-                .popover(isPresented: self.$isPopoverShowing, arrowEdge: .bottom) {
-                    PopoverProject(isPopoverShowing: self.$isPopoverShowing)
+            }
+            .frame(height: 30, alignment: .center)
+            .offset(y: 8)
+            .onChange(of: alertManager.isOn) {
+                if !alertManager.text.isEmpty && alertManager.fromWho == "TopNavigationBar" {
+                    projectManagerService.addNewProject(name: alertManager.text)
+                    alertManager.reset()
                 }
             }
             
-           
+            Divider()
+                .frame(maxWidth: .infinity)
+                .frame(height: 1)
+                .overlay(.black)
+                .offset(y: 6)
         }
-        .padding(.horizontal)
-        .padding(.vertical, 5)
-        .frame(height: 40)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .overlay(
-            Rectangle()
-                .frame(height: 0.5)
-                .foregroundColor(Color.black),
-            alignment: .bottom
-        )
-        .contentShape(Rectangle())
-        .onChange(of: alertManager.isOn) {
-            if !alertManager.text.isEmpty && alertManager.fromWho == "TopNavigationBar" {
-                projectManagerService.addNewProject(name: alertManager.text)
-                alertManager.reset()
-            }
-        }
+        .frame(maxWidth: .infinity, alignment: .center)
+        .frame(height: 35)
+        .background(Color(red: 55/255, green: 55/255, blue: 53/255))
     }
 }
 

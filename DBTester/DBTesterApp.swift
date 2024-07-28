@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 @main
 struct DBTesterApp: App {
     @StateObject var alertManager = AlertManager()

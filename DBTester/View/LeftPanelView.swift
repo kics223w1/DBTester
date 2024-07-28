@@ -45,6 +45,7 @@ struct LeftPanelView: View {
                 HistoryView()
             }
         }
+        .padding(.top, 4)
     }
 }
 

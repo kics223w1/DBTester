@@ -125,7 +125,7 @@ struct TreeView: View {
                     Button(action: {
                         openAlert(node: node)
                     }) {
-                        Image(systemName: "plus.circle")
+                        Image(systemName: "plus")
                     }
                     .buttonStyle(PlainButtonStyle())
                 }

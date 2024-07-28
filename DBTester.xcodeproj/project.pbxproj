@@ -9,11 +9,11 @@
 /* Begin PBXBuildFile section */
 		C804A4712C53961A00B17F2C /* AddingClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C804A4702C53961A00B17F2C /* AddingClass.swift */; };
 		C804A4732C540A0700B17F2C /* ColumnAttributeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C804A4722C540A0700B17F2C /* ColumnAttributeModel.swift */; };
-		C819472D2C34604E00403CAF /* TopMainPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C819472C2C34604E00403CAF /* TopMainPanelView.swift */; };
 		C81E2E102C35884100728F3A /* TopNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81E2E0F2C35884100728F3A /* TopNavigationBar.swift */; };
 		C81E2E132C35922600728F3A /* ProjectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81E2E122C35922600728F3A /* ProjectModel.swift */; };
 		C82CB2372C3691CA007657BE /* ProjectManagerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82CB2362C3691CA007657BE /* ProjectManagerService.swift */; };
 		C82CB2392C369C44007657BE /* ConnectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C82CB2382C369C44007657BE /* ConnectionModel.swift */; };
+		C830707C2C54F96000233A6C /* BottomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C830707B2C54F96000233A6C /* BottomNavigationBar.swift */; };
 		C83478A32C50E5540063990B /* CodeEditor in Frameworks */ = {isa = PBXBuildFile; productRef = C83478A22C50E5540063990B /* CodeEditor */; };
 		C83A0D0D2C47D7D600E7269D /* FileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C83A0D0C2C47D7D600E7269D /* FileModel.swift */; };
 		C83A0D0F2C47DF7600E7269D /* TreeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C83A0D0E2C47DF7600E7269D /* TreeNode.swift */; };
@@ -68,11 +68,11 @@
 /* Begin PBXFileReference section */
 		C804A4702C53961A00B17F2C /* AddingClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingClass.swift; sourceTree = "<group>"; };
 		C804A4722C540A0700B17F2C /* ColumnAttributeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnAttributeModel.swift; sourceTree = "<group>"; };
-		C819472C2C34604E00403CAF /* TopMainPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopMainPanelView.swift; sourceTree = "<group>"; };
 		C81E2E0F2C35884100728F3A /* TopNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopNavigationBar.swift; sourceTree = "<group>"; };
 		C81E2E122C35922600728F3A /* ProjectModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectModel.swift; sourceTree = "<group>"; };
 		C82CB2362C3691CA007657BE /* ProjectManagerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerService.swift; sourceTree = "<group>"; };
 		C82CB2382C369C44007657BE /* ConnectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionModel.swift; sourceTree = "<group>"; };
+		C830707B2C54F96000233A6C /* BottomNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomNavigationBar.swift; sourceTree = "<group>"; };
 		C83A0D0C2C47D7D600E7269D /* FileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileModel.swift; sourceTree = "<group>"; };
 		C83A0D0E2C47DF7600E7269D /* TreeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeNode.swift; sourceTree = "<group>"; };
 		C83A0D102C47DF9400E7269D /* TreeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeView.swift; sourceTree = "<group>"; };
@@ -284,11 +284,11 @@
 			children = (
 				C8D8981C2C30737100277410 /* LeftPanelView.swift */,
 				C8D8981E2C30739C00277410 /* MainPanelView.swift */,
-				C819472C2C34604E00403CAF /* TopMainPanelView.swift */,
 				C81E2E0F2C35884100728F3A /* TopNavigationBar.swift */,
 				C83A0D102C47DF9400E7269D /* TreeView.swift */,
 				C84CD7CB2C490BBF00B549DD /* HistoryView.swift */,
 				C84CD7CD2C490BC700B549DD /* OllamaView.swift */,
+				C830707B2C54F96000233A6C /* BottomNavigationBar.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -442,7 +442,6 @@
 				C861883F2C4BE14400F53989 /* PopoverConnection.swift in Sources */,
 				C868B6352C4BAC88001B4274 /* JSCore.swift in Sources */,
 				C868B6372C4BB8FB001B4274 /* PopoverProject.swift in Sources */,
-				C819472D2C34604E00403CAF /* TopMainPanelView.swift in Sources */,
 				C84CD7CE2C490BC700B549DD /* OllamaView.swift in Sources */,
 				C8D897F32C3072F000277410 /* ContentView.swift in Sources */,
 				C82CB2372C3691CA007657BE /* ProjectManagerService.swift in Sources */,
@@ -463,6 +462,7 @@
 				C804A4712C53961A00B17F2C /* AddingClass.swift in Sources */,
 				C81E2E132C35922600728F3A /* ProjectModel.swift in Sources */,
 				C83A0D132C47EDA800E7269D /* EnvironmentString.swift in Sources */,
+				C830707C2C54F96000233A6C /* BottomNavigationBar.swift in Sources */,
 				C84CD7CC2C490BBF00B549DD /* HistoryView.swift in Sources */,
 				C8D897F12C3072F000277410 /* DBTesterApp.swift in Sources */,
 			);
