@@ -14,6 +14,7 @@ struct DBTesterApp: App {
     @StateObject var environmentString = EnvironmentString()
     @StateObject var dbTesterCore = DBTesterCore()
     @StateObject var projectManagerService = ProjectManagerService.shared
+    @StateObject var connectionService = ConnectionService.shared
     @StateObject var jsCore = JSCore.shared
 
     
@@ -22,28 +23,33 @@ struct DBTesterApp: App {
         ConnectionService.shared.loadConnections()
     }
     
-
-
-       
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .alert(alertManager.title, isPresented: $alertManager.isOn) {
-                    TextField(alertManager.placeHolder, text: $alertManager.text)
-                        .onSubmit {
-                        
-                        }
-                    Button(alertManager.actionText, role: .cancel) { }
-               }
-                .onAppear {
-                    Task {
-                        await dbTesterCore.connectDatabase()
+                    if !alertManager.isErrorMessageAlert {
+                        TextField(alertManager.placeHolder, text: $alertManager.text)
+                            .onSubmit {
+                            
+                            }
                     }
-                }
+                    
+                    Button(alertManager.actionText, role: .cancel) { 
+                        alertManager.reset()
+                    }
+               }
+                
                .environmentObject(alertManager)
                .environmentObject(environmentString)
                .environmentObject(projectManagerService)
+               .environmentObject(connectionService)
                .environmentObject(jsCore)
+               .onChange(of: alertManager.isOn) {
+                   if !alertManager.text.isEmpty && alertManager.fromWho == "PopoverConnection" {
+                       projectManagerService.addNewProject(name: alertManager.text)
+                       alertManager.reset()
+                   }
+               }
         }
         .windowStyle(HiddenTitleBarWindowStyle())
         
@@ -57,20 +63,6 @@ struct DBTesterApp: App {
           ConnectionWindow()
         }
         .windowStyle(HiddenTitleBarWindowStyle())
-        
-        WindowGroup(id : "ConnectionListWindow") {
-            ConnectionListWindow(connections: ConnectionService.shared.connections)
-                .background(WindowAccessor { window in
-                    if let window = window {
-                        window.setContentSize(NSSize(width: 300, height: 500))
-                        window.contentView?.wantsLayer = true
-                        window.contentView?.layer?.backgroundColor = NSColor.black.cgColor
-                    }
-                })
-                .background(Color(red: 42/255, green: 42/255, blue: 42/255))
-        }
-        .windowStyle(HiddenTitleBarWindowStyle())
-       
     }
 }
 

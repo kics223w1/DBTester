@@ -10,9 +10,9 @@ struct ConnectionWindow: View {
 
     let databaseInfos : [DatabaseInfo] = [
         DatabaseInfo(database: .postgreSQL, message: ""),
-        DatabaseInfo(database: .mySQL, message: "Added in v0.2.0"),
-        DatabaseInfo(database: .sqlServer, message: "Added in v0.3.0"),
-        DatabaseInfo(database: .mongodb, message: "Added in v0.4.0")
+        DatabaseInfo(database: .mySQL, message: "(v0.2.0)"),
+        DatabaseInfo(database: .sqlServer, message: "(v0.3.0)"),
+        DatabaseInfo(database: .mongodb, message: "(v0.4.0)")
     ]
 
     
@@ -31,7 +31,7 @@ struct ConnectionWindow: View {
                                     .foregroundColor(databaseInfo.database == .postgreSQL ? .white : .gray)
                                 Spacer()
                                 if !databaseInfo.message.isEmpty {
-                                    Text("(\(databaseInfo.message))")
+                                    Text("\(databaseInfo.message)")
                                         .font(.caption)
                                         .foregroundColor(.gray)
                                 }

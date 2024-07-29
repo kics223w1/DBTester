@@ -20,18 +20,21 @@ class ProjectManagerService : ObservableObject {
         self.projectModels = [defaultProject]
     }
     
-    func updateSelectedProjectModel(name: String) {
-        if let projectModel = self.projectModels.first(where: { $0.name == name }) {
+    func updateSelectedProjectModel(id: UUID) {
+        for index in self.projectModels.indices {
+            self.projectModels[index].isSelected = (self.projectModels[index].id == id)
+        }
+    
+        if let projectModel = self.projectModels.first(where: { $0.id == id }) {
             self.selectedProjectModel = projectModel
             self.saveData()
         } else {
-            // Handle case where no project with the given name is found
-            print("No project found with the name \(name)")
+            print("No project found with the id \(id)")
         }
     }
 
     func addNewProject(name: String) {
-        let newProject = ProjectModel(name: name)
+        let newProject = ProjectModel(name: name, isSelected: false)
         self.projectModels.append(newProject)
         self.saveData()
     }
@@ -42,20 +45,11 @@ class ProjectManagerService : ObservableObject {
         jsonEncoder.outputFormatting = .prettyPrinted // Optional: for pretty printed JSON
 
         do {
-            // Encode the selected models
-            let jsonSelectedProjectModel = try jsonEncoder.encode(selectedProjectModel)
             let jsonProjectModels = try jsonEncoder.encode(projectModels)
-
-            // Convert to string for debugging (optional)
-            let jsonSelectedProjectModelString = String(data: jsonSelectedProjectModel, encoding: .utf8)
             let jsonProjectModelsString = String(data: jsonProjectModels, encoding: .utf8)
-            
-            print("Encoded selected project model: \(jsonSelectedProjectModelString ?? "")")
-            print("Encoded project models: \(jsonProjectModelsString ?? "")")
-            
+                        
             // Create a dictionary to hold all encoded data
             var dataDict = [String: Any]()
-            dataDict["selectedProjectModel"] = String(data: jsonSelectedProjectModel, encoding: .utf8)!
             dataDict["projectModels"] = String(data: jsonProjectModels, encoding: .utf8)!
             
             // Convert dictionary to JSON data
@@ -78,16 +72,19 @@ class ProjectManagerService : ObservableObject {
             
             // Decode the data into a dictionary
             if let jsonDict = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any] {
-                // Decode selected project model
-                if let selectedProjectModelString = jsonDict["selectedProjectModel"] as? String {
-                    let jsonData = Data(selectedProjectModelString.utf8)
-                    self.selectedProjectModel = try jsonDecoder.decode(ProjectModel.self, from: jsonData)
-                }
 
                 // Decode project models
                 if let projectModelsString = jsonDict["projectModels"] as? String {
                     let jsonData = Data(projectModelsString.utf8)
                     self.projectModels = try jsonDecoder.decode([ProjectModel].self, from: jsonData)
+                }
+                
+                if let selectedModel = self.projectModels.first(where: { $0.isSelected }) {
+                    self.selectedProjectModel = selectedModel
+                } else {
+                    let defaultProject = ProjectModel.initDefault()
+                    self.projectModels.append(defaultProject)
+                    self.selectedProjectModel = defaultProject
                 }
             }
 

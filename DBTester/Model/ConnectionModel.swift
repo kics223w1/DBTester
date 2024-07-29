@@ -3,16 +3,17 @@ import Foundation
 
 
 
-struct ConnectionModel: Encodable, Decodable, Identifiable {
+struct ConnectionModel: Encodable, Decodable, Identifiable, Equatable {
     let id: UUID
-    let name: String
-    let host :String
-    let port :String
-    let username : String
-    let password: String
-    let databaseType: Database
-    let databaseName: String
-    let isSelected: Bool
+    
+    var name: String
+    var host :String
+    var port :String
+    var username : String
+    var password: String
+    var databaseType: Database
+    var databaseName: String
+    var isSelected: Bool
     
     init(name : String, host: String, port: String, username : String, password: String, databaseType: Database, databaseName: String, isSelected: Bool) {
         self.id = UUID()
@@ -28,6 +29,10 @@ struct ConnectionModel: Encodable, Decodable, Identifiable {
     
     func getDescription() -> String {
         return "Name: \(self.name) | Driver: \(self.databaseType.friendlyName) | \(self.host):\(self.port)"
+    }
+    
+    func getTitle() -> String {
+        return "\(self.name) | \(self.host) | \(self.databaseName) | \(self.databaseType.friendlyName)"
     }
     
     // Custom initializer to decode from JSON

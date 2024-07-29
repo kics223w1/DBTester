@@ -15,10 +15,7 @@ class ConnectionFormViewModel: ObservableObject {
     @Published var username: String
     @Published var password: String
     @Published var database : String
-    
-    let connectionService = ConnectionService()
-
-    
+        
     init(placeholders: [String: String]) {
         self.name = ""
         self.host = placeholders["Host"] ?? ""
@@ -30,13 +27,13 @@ class ConnectionFormViewModel: ObservableObject {
     
     func testConnection(selectedDatabase: Database) async -> String {
         let con = self.getConnection(selectedDatabase: selectedDatabase)
-        return await connectionService.canConnect(con: con)
+        return await ConnectionService.shared.canConnect(con: con)
    }
     
     func addAndSaveConnection(selectedDatabase: Database) {
         let con = self.getConnection(selectedDatabase: selectedDatabase)
-        connectionService.addNewConnection(con: con)
-        connectionService.saveConnection()
+        ConnectionService.shared.addNewConnection(con: con)
+        ConnectionService.shared.saveConnections()
     }
     
     func getConnection(selectedDatabase: Database) -> ConnectionModel {

@@ -36,7 +36,7 @@ enum Database : Codable {
         }
 }
 
-class ConnectionService {
+class ConnectionService : ObservableObject {
     static let shared = ConnectionService()
     
     @Published var connections : [ConnectionModel]
@@ -51,6 +51,14 @@ class ConnectionService {
         return savePath
     }
     
+    func updateSelectedConnection(id: UUID) {
+        for index in self.connections.indices {
+            self.connections[index].isSelected = (self.connections[index].id == id)
+        }
+            
+        self.saveConnections()
+    }
+    
     func addNewConnection(con : ConnectionModel) {
         self.connections.append(con)
     }
@@ -58,13 +66,13 @@ class ConnectionService {
     func deleteConnection(con: ConnectionModel) {
         if let index = connections.firstIndex(where: { $0.id == con.id }) {
             connections.remove(at: index)
-            self.saveConnection()
+            self.saveConnections()
         } else {
             print("Connection not found.")
         }
     }
     
-    func saveConnection() {
+    func saveConnections() {
         let savePath = self.getSavePath()
         do {
             let jsonEncoder = JSONEncoder()
@@ -84,9 +92,18 @@ class ConnectionService {
             let data = try Data(contentsOf: savePath)
             let decoder = JSONDecoder()
             self.connections = try decoder.decode([ConnectionModel].self, from: data)
-            print("Connections loaded successfully.")
+            print("Connections loaded successfully. \(self.connections)")
         } catch {
             print("Failed to load connections: \(error)")
+        }
+    }
+    
+    func getSelectedTitle() async -> String {
+        if let selectedConnection = self.connections.first(where: { $0.isSelected }) {
+            let testConnectionMessage = await self.testPostgreSQLConnection(con: selectedConnection)
+            return testConnectionMessage == "OK" ? selectedConnection.getTitle() : "Error! Tap to reconnect..."
+        } else {
+            return "Tap to create connection..."
         }
     }
     
@@ -98,7 +115,7 @@ class ConnectionService {
             return "Not OK"
         }
     }
-        
+    
     private func testPostgreSQLConnection(con : ConnectionModel) async -> String {
         guard let port = Int(con.port) else {
                 return "Invalid port number"
@@ -133,4 +150,9 @@ class ConnectionService {
             return "\(error)"
         }
     }
+}
+
+
+struct SQLError {
+    var message: String = ""
 }

@@ -2,21 +2,31 @@ import SwiftUI
 
 struct TopNavigationBar: View {
 
-    @EnvironmentObject var alertManager: AlertManager
     @EnvironmentObject var projectManagerService: ProjectManagerService
+    @EnvironmentObject var connectionService: ConnectionService
 
+    
     @State private var isPopoverShowing = false
     @State private var isPopoverConnectionVisible = false
 
     @State private var isHoveringButton = false
+    @State private var connectionTitle : String = ""
+    
+    private func isConnectionOK() -> Bool {
+        return connectionTitle.hasPrefix("Error!") || connectionTitle.hasPrefix("Tap to") ? false : true
+    }
+    
+    private func updateConnectionTitle() async {
+        connectionTitle = await connectionService.getSelectedTitle()
+    }
     
     var body: some View {
         VStack {
             HStack(alignment: .center, spacing: 10) {
-                Text("Local | PostgreSQL")
+                Text("\(projectManagerService.selectedProjectModel.name) | \(connectionTitle)")
                     .padding(.leading, 8)
-                    .frame(width: 350, height: 25, alignment: .leading)
-                    .background(Color(red: 0.0, green: 0.5, blue: 0.0))
+                    .frame(width: 400, height: 25, alignment: .leading)
+                    .background(isConnectionOK() ? Color(red: 0.0, green: 0.5, blue: 0.0) : Color(red: 0.5, green: 0.1, blue: 0.0))
                     .cornerRadius(4)
                     .popover(isPresented: self.$isPopoverConnectionVisible, arrowEdge: .bottom) {
                         PopoverConnection(isPopoverVisible: self.$isPopoverConnectionVisible)
@@ -24,6 +34,7 @@ struct TopNavigationBar: View {
                     .onTapGesture {
                         self.isPopoverConnectionVisible.toggle()
                     }
+                    .buttonStyle(BorderedButtonStyle())
                 
                 Button(action: {
                     // Add your button action here
@@ -42,12 +53,6 @@ struct TopNavigationBar: View {
             }
             .frame(height: 30, alignment: .center)
             .offset(y: 8)
-            .onChange(of: alertManager.isOn) {
-                if !alertManager.text.isEmpty && alertManager.fromWho == "TopNavigationBar" {
-                    projectManagerService.addNewProject(name: alertManager.text)
-                    alertManager.reset()
-                }
-            }
             
             Divider()
                 .frame(maxWidth: .infinity)
@@ -58,6 +63,16 @@ struct TopNavigationBar: View {
         .frame(maxWidth: .infinity, alignment: .center)
         .frame(height: 35)
         .background(Color(red: 55/255, green: 55/255, blue: 53/255))
+        .onAppear {
+            Task {
+                await updateConnectionTitle()
+            }
+        }
+        .onChange(of: connectionService.connections) {
+            Task {
+                await updateConnectionTitle()
+            }
+        }
     }
 }
 
