@@ -20,11 +20,9 @@ struct ConnectionList : View {
     
     private func handleConnect() async {
         if let selectedConnection = self.selectedConnection {
-            let message = await connectionService.canConnect(con: selectedConnection)
+            let message = await connectionService.updateSelectedConnection(id: selectedConnection.id)
             if message != "OK" {
                 alertManager.openErrorMessageAlert(text: message, fromWho: "ConnectionList")
-            } else {
-                connectionService.updateSelectedConnection(id: selectedConnection.id)
             }
         }
     }
@@ -42,7 +40,7 @@ struct ConnectionList : View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.vertical, 4)
                     .padding(.horizontal, 8)
-                    .background(selectedConnection?.id == connectionModel.id ? Color.blue : Color.clear)
+                    .background(selectedConnection?.id == connectionModel.id ? Color.green : Color.clear)
                     .cornerRadius(4)
                     .onTapGesture {
                         selectedConnection = connectionModel
@@ -67,23 +65,21 @@ struct ConnectionList : View {
               
                 .buttonStyle(BorderedButtonStyle())
                 
-                
-                
                 Spacer()
                     .frame(width: 60)
-                
+
                 Button {
-                    openWindow(id: "ConnectionWindow")
+                   
                 }label: {
-                     Text("New")
+                    Text("Edit")
                         .frame(width: 60)
                 }
                 .buttonStyle(BorderedButtonStyle())
                 
                 Button {
-                   
+                    openWindow(id: "ConnectionWindow")
                 }label: {
-                    Text("Edit")
+                     Text("New")
                         .frame(width: 60)
                 }
                 .buttonStyle(BorderedButtonStyle())

@@ -9,15 +9,18 @@ import SwiftUI
 import AppKit
 
 struct ContentView: View {
+    
+    @State var mainPanelTab : MainPanelTab = .unitTest
+    
     var body: some View {
         VStack {
-            TopNavigationBar()
+            TopNavigationBar(mainPanelTab: $mainPanelTab)
                 .background(Color.blue)
             
                 NavigationView {
                     LeftPanelView()
                         .frame(width: 250)
-                    MainPanelView()
+                    MainPanelView(mainPanelTab: $mainPanelTab)
                 }
         }
         .previewLayout(.sizeThatFits)

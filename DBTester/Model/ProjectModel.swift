@@ -26,6 +26,7 @@ struct ProjectModel: Identifiable, Codable, Equatable {
             
             try FileManager.default.createDirectory(at: unitTestDir, withIntermediateDirectories: true, attributes: nil)
             try FileManager.default.createDirectory(at: sqlCommandDir, withIntermediateDirectories: true, attributes: nil)
+            
 
             FileModel.createFileInFolderPath(name: "TestTableEmployees.js" , folderPath: unitTestDir.path)
             FileModel.createFileInFolderPath(name: "GetUserByID.sql" , folderPath: sqlCommandDir.path)

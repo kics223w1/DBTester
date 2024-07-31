@@ -65,8 +65,8 @@ struct TreeView: View {
                 }
             }
             
-            environmentString.selectedTabTopMainPanelName = selectedTopPanelNode?.name ?? ""
-            environmentString.selectedTabBottomMainPanelName = selectedBottomPanelNode?.name ?? ""
+            environmentString.selectedtUnitTestFileName = selectedTopPanelNode?.name ?? ""
+            environmentString.selectedSQLCommandFileName = selectedBottomPanelNode?.name ?? ""
             selectedNode = selectedTopPanelNode ?? selectedBottomPanelNode
             
             return [treeNodeUnitTest, treeNodeSQLCommand]
@@ -80,7 +80,7 @@ struct TreeView: View {
     
     private func addNewNode(name: String) {
         let validName = TreeNode.getCorrectChildName(input: name, isUnitTest: isFromUnitTestParent)
-        let folderPath = isFromUnitTestParent ? projectManagerService.getUnitTestFilePath(fileName: validName) : projectManagerService.getSQLCommandFilePath(fileName: validName)
+        let folderPath = isFromUnitTestParent ? projectManagerService.getUnitTestFolderPath() : projectManagerService.getSQLCommandFolderPath()
 
         
         if isFromUnitTestParent {
@@ -89,7 +89,7 @@ struct TreeView: View {
             nodes[1].addNewNode(name: validName)
         }
         
-        FileModel.createFileInFolderPath(name: validName, folderPath: folderPath)
+        FileModel.createFileInFolderPath(name: validName, folderPath: folderPath.path)
     }
     
     private func openAlert(node: TreeNode) {
@@ -108,7 +108,7 @@ struct TreeView: View {
                         .padding(.trailing, 8)
                 } else if node.name.hasSuffix(".js") {
                     Text("JS")
-                        .foregroundColor(.yellow)
+                        .foregroundColor(.green)
                 } else if node.name.hasSuffix(".sql") {
                     Text("SQL")
                         .foregroundColor(.green)
@@ -139,9 +139,9 @@ struct TreeView: View {
                 if !node.isParent {
                     selectedNode = node
                     if node.isUnitTest() {
-                        environmentString.selectedTabTopMainPanelName = node.name
+                        environmentString.selectedtUnitTestFileName = node.name
                     } else {
-                        environmentString.selectedTabBottomMainPanelName = node.name
+                        environmentString.selectedSQLCommandFileName = node.name
                     }
                 }
             }

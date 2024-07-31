@@ -44,6 +44,9 @@
 		C8D8980F2C3072F100277410 /* DBTesterUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D8980E2C3072F100277410 /* DBTesterUITestsLaunchTests.swift */; };
 		C8D8981D2C30737100277410 /* LeftPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D8981C2C30737100277410 /* LeftPanelView.swift */; };
 		C8D8981F2C30739C00277410 /* MainPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D8981E2C30739C00277410 /* MainPanelView.swift */; };
+		C8EF1ECE2C5988F300C4AA5B /* HistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8EF1ECD2C5988F300C4AA5B /* HistoryModel.swift */; };
+		C8EF1ED02C598A7200C4AA5B /* HistoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8EF1ECF2C598A7200C4AA5B /* HistoryService.swift */; };
+		C8F60E4A2C578E51008E8409 /* ConnectionServiceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F60E492C578E51008E8409 /* ConnectionServiceHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,6 +104,9 @@
 		C8D8980E2C3072F100277410 /* DBTesterUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBTesterUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		C8D8981C2C30737100277410 /* LeftPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftPanelView.swift; sourceTree = "<group>"; };
 		C8D8981E2C30739C00277410 /* MainPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPanelView.swift; sourceTree = "<group>"; };
+		C8EF1ECD2C5988F300C4AA5B /* HistoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryModel.swift; sourceTree = "<group>"; };
+		C8EF1ECF2C598A7200C4AA5B /* HistoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryService.swift; sourceTree = "<group>"; };
+		C8F60E492C578E51008E8409 /* ConnectionServiceHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionServiceHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +141,7 @@
 		C81E2E112C35921300728F3A /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				C8EF1ECC2C5988E000C4AA5B /* History */,
 				C81E2E122C35922600728F3A /* ProjectModel.swift */,
 				C82CB2382C369C44007657BE /* ConnectionModel.swift */,
 				C83A0D0C2C47D7D600E7269D /* FileModel.swift */,
@@ -155,6 +162,7 @@
 				C868B6342C4BAC88001B4274 /* JSCore.swift */,
 				C848E4B32C4D35F80055B27E /* ConnectionService.swift */,
 				C883A0EB2C5238DF006897FA /* TemplateService.swift */,
+				C8EF1ECF2C598A7200C4AA5B /* HistoryService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -231,6 +239,7 @@
 		C8D897EF2C3072F000277410 /* DBTester */ = {
 			isa = PBXGroup;
 			children = (
+				C8F60E482C578E43008E8409 /* Helper */,
 				C848E4B52C4D36C30055B27E /* ViewModel */,
 				C848E4AE2C4D35BF0055B27E /* Controller */,
 				C848E4AB2C4D1F5F0055B27E /* Utils */,
@@ -285,6 +294,22 @@
 				C84CD7CD2C490BC700B549DD /* OllamaView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		C8EF1ECC2C5988E000C4AA5B /* History */ = {
+			isa = PBXGroup;
+			children = (
+				C8EF1ECD2C5988F300C4AA5B /* HistoryModel.swift */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		C8F60E482C578E43008E8409 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				C8F60E492C578E51008E8409 /* ConnectionServiceHelper.swift */,
+			);
+			path = Helper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -442,6 +467,7 @@
 				C8D8981D2C30737100277410 /* LeftPanelView.swift in Sources */,
 				C848E4AD2C4D1F6F0055B27E /* ConnectionForm.swift in Sources */,
 				C81E2E102C35884100728F3A /* TopNavigationBar.swift in Sources */,
+				C8F60E4A2C578E51008E8409 /* ConnectionServiceHelper.swift in Sources */,
 				C8838FA22C3866F200083EAE /* AlertManager.swift in Sources */,
 				C848E4B42C4D35F80055B27E /* ConnectionService.swift in Sources */,
 				C82CB2392C369C44007657BE /* ConnectionModel.swift in Sources */,
@@ -454,6 +480,8 @@
 				C890E16F2C5742030022CB8E /* ConnectionList.swift in Sources */,
 				C804A4712C53961A00B17F2C /* AddingClass.swift in Sources */,
 				C81E2E132C35922600728F3A /* ProjectModel.swift in Sources */,
+				C8EF1ED02C598A7200C4AA5B /* HistoryService.swift in Sources */,
+				C8EF1ECE2C5988F300C4AA5B /* HistoryModel.swift in Sources */,
 				C83A0D132C47EDA800E7269D /* EnvironmentString.swift in Sources */,
 				C84CD7CC2C490BBF00B549DD /* HistoryView.swift in Sources */,
 				C8D897F12C3072F000277410 /* DBTesterApp.swift in Sources */,

@@ -1,23 +1,32 @@
 import SwiftUI
 
 struct TopNavigationBar: View {
-
-    @EnvironmentObject var projectManagerService: ProjectManagerService
-    @EnvironmentObject var connectionService: ConnectionService
-
     
     @State private var isPopoverShowing = false
     @State private var isPopoverConnectionVisible = false
-
     @State private var isHoveringButton = false
     @State private var connectionTitle : String = ""
     
+    @Binding var mainPanelTab : MainPanelTab
+
+    @EnvironmentObject var projectManagerService: ProjectManagerService
+    @EnvironmentObject var connectionService: ConnectionService
+    @EnvironmentObject var environmentString: EnvironmentString
+
     private func isConnectionOK() -> Bool {
         return connectionTitle.hasPrefix("Error!") || connectionTitle.hasPrefix("Tap to") ? false : true
     }
     
     private func updateConnectionTitle() async {
         connectionTitle = await connectionService.getSelectedTitle()
+    }
+    
+    private func runSelectedTest() {
+        
+    }
+    
+    private func runAllTests() {
+        mainPanelTab = .consoleLog
     }
     
     var body: some View {
@@ -35,21 +44,22 @@ struct TopNavigationBar: View {
                         self.isPopoverConnectionVisible.toggle()
                     }
                     .buttonStyle(BorderedButtonStyle())
-                
-                Button(action: {
-                    // Add your button action here
-                }) {
-                    Image(systemName: "cylinder.split.1x2")
-                }
-                .buttonStyle(BorderedButtonStyle())
 
                 Button(action: {
-                    // Add your button action here
+                        runAllTests()
                 }) {
                     Image(systemName: "play.fill")
                 }
-                .buttonStyle(BorderedButtonStyle())
-                    
+                .frame(height: 35)
+                
+                Text("FREE")
+                    .bold()
+                    .frame(width: 40, height: 25)
+                    .padding(.leading, 2)
+                    .padding(.trailing, 2)
+                    .background(Color.yellow)
+                    .foregroundStyle(.black)
+                    .cornerRadius(4)
             }
             .frame(height: 30, alignment: .center)
             .offset(y: 8)
@@ -78,5 +88,5 @@ struct TopNavigationBar: View {
 
 // Preview
 #Preview {
-    TopNavigationBar()
+    TopNavigationBar(mainPanelTab: .constant(.unitTest))
 }

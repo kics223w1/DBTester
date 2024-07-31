@@ -40,8 +40,9 @@ const unitTestHandler = new UnitTestHandler();
 function it(unitTestName, callBack) {
     try {
         callBack()
+        console.log(`✅ ${unitTestName} passed`)
     } catch(e) {
-        console.log(`Error at: ${unitTestName} with message: ${e.message}`)
+        console.log(`${unitTestName} failed. ${e.message}`)
     }
 }
 

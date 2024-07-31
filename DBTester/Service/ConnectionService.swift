@@ -41,8 +41,11 @@ class ConnectionService : ObservableObject {
     
     @Published var connections : [ConnectionModel]
     
+    var helper: ConnectionServiceHelper
+    
     init() {
         self.connections = []
+        self.helper = ConnectionServiceHelper()
     }
     
     func getSavePath() -> URL {
@@ -51,12 +54,22 @@ class ConnectionService : ObservableObject {
         return savePath
     }
     
-    func updateSelectedConnection(id: UUID) {
+    func updateSelectedConnection(id: UUID) async -> String {
+        guard let selectedConnection = self.connections.first(where: {$0.id == id}) else { return "Not found!" }
+        
+        let message = await self.helper.canConnect(con: selectedConnection)
+        if message != "OK" {
+            return message
+        }
+        
         for index in self.connections.indices {
             self.connections[index].isSelected = (self.connections[index].id == id)
         }
-            
+        
+        await self.helper.connectDB(con: selectedConnection)
         self.saveConnections()
+        
+        return "OK"
     }
     
     func addNewConnection(con : ConnectionModel) {
@@ -86,13 +99,17 @@ class ConnectionService : ObservableObject {
         }
     }
 
-    func loadConnections() {
+    func loadConnections() async {
         let savePath = self.getSavePath()
         do {
             let data = try Data(contentsOf: savePath)
             let decoder = JSONDecoder()
             self.connections = try decoder.decode([ConnectionModel].self, from: data)
             print("Connections loaded successfully. \(self.connections)")
+            
+            if let selectedConnection = self.connections.first(where: { $0.isSelected }) {
+                await self.updateSelectedConnection(id: selectedConnection.id)
+            }
         } catch {
             print("Failed to load connections: \(error)")
         }
@@ -100,59 +117,12 @@ class ConnectionService : ObservableObject {
     
     func getSelectedTitle() async -> String {
         if let selectedConnection = self.connections.first(where: { $0.isSelected }) {
-            let testConnectionMessage = await self.testPostgreSQLConnection(con: selectedConnection)
+            let testConnectionMessage = await self.helper.canConnect(con: selectedConnection)
             return testConnectionMessage == "OK" ? selectedConnection.getTitle() : "Error! Tap to reconnect..."
         } else {
             return "Tap to create connection..."
         }
     }
     
-    func canConnect(con : ConnectionModel) async -> String  {
-        switch con.databaseType {
-        case .postgreSQL :
-           return await self.testPostgreSQLConnection(con: con)
-        default:
-            return "Not OK"
-        }
-    }
     
-    private func testPostgreSQLConnection(con : ConnectionModel) async -> String {
-        guard let port = Int(con.port) else {
-                return "Invalid port number"
-        }
-                
-        do {
-            var configuration = PostgresClientKit.ConnectionConfiguration()
-            configuration.host = con.host
-            configuration.port = port
-            
-            configuration.database = con.databaseName
-            
-            configuration.user = con.username
-            configuration.credential = Credential.trust
-            
-            configuration.ssl = false
-
-            
-            let client = try PostgresClientKit.Connection(configuration: configuration)
-            defer { client.close() }
-            
-            let text =  "SELECT 1"
-            let statement = try client.prepareStatement(text: text)
-            defer { statement.close() }
-
-            let cursor = try statement.execute(parameterValues: [])
-            defer { cursor.close() }
-
-            
-            return "OK"
-        } catch {
-            return "\(error)"
-        }
-    }
-}
-
-
-struct SQLError {
-    var message: String = ""
 }

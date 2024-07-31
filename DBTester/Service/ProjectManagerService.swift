@@ -46,7 +46,6 @@ class ProjectManagerService : ObservableObject {
 
         do {
             let jsonProjectModels = try jsonEncoder.encode(projectModels)
-            let jsonProjectModelsString = String(data: jsonProjectModels, encoding: .utf8)
                         
             // Create a dictionary to hold all encoded data
             var dataDict = [String: Any]()
@@ -101,18 +100,6 @@ class ProjectManagerService : ObservableObject {
         let savePath = appSupportDir.appendingPathComponent("DBTesterConfiguration.json", isDirectory: false)
     
         return savePath
-    }
-    
-    func getUnitTestFilePath(fileName : String) -> String {
-        let unitTestDir =  self.getUnitTestFolderPath()
-        let filePath = unitTestDir.appendingPathComponent(fileName)
-        return filePath.path
-    }
-    
-    func getSQLCommandFilePath(fileName : String) -> String {
-        let sqlCommandDir = self.getSQLCommandFolderPath()
-        let filePath = sqlCommandDir.appendingPathComponent(fileName)
-        return filePath.path
     }
     
     func getProjecetFolderPath() -> URL {

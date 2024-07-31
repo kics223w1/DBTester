@@ -15,12 +15,12 @@ struct DBTesterApp: App {
     @StateObject var dbTesterCore = DBTesterCore()
     @StateObject var projectManagerService = ProjectManagerService.shared
     @StateObject var connectionService = ConnectionService.shared
+    @StateObject var historyService = HistoryService.shared
     @StateObject var jsCore = JSCore.shared
 
     
     init()  {
         ProjectManagerService.shared.loadDataAtLaunch()
-        ConnectionService.shared.loadConnections()
     }
     
     var body: some Scene {
@@ -29,25 +29,26 @@ struct DBTesterApp: App {
                 .alert(alertManager.title, isPresented: $alertManager.isOn) {
                     if !alertManager.isErrorMessageAlert {
                         TextField(alertManager.placeHolder, text: $alertManager.text)
-                            .onSubmit {
-                            
-                            }
                     }
                     
-                    Button(alertManager.actionText, role: .cancel) { 
-                        alertManager.reset()
+                    Button(alertManager.actionText, role: .cancel) {
                     }
                }
-                
                .environmentObject(alertManager)
                .environmentObject(environmentString)
                .environmentObject(projectManagerService)
                .environmentObject(connectionService)
                .environmentObject(jsCore)
+               .environmentObject(historyService)
                .onChange(of: alertManager.isOn) {
                    if !alertManager.text.isEmpty && alertManager.fromWho == "PopoverConnection" {
                        projectManagerService.addNewProject(name: alertManager.text)
                        alertManager.reset()
+                   }
+               }
+               .onAppear {
+                   Task {
+                      await ConnectionService.shared.loadConnections()
                    }
                }
         }

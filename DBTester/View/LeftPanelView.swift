@@ -46,6 +46,7 @@ struct LeftPanelView: View {
             }
         }
         .padding(.top, 4)
+        .background(Color(red: 55/255, green: 55/255, blue: 53/255))
     }
 }
 

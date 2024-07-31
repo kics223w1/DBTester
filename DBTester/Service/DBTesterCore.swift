@@ -13,18 +13,11 @@ class DBTesterCore : ObservableObject {
     
     func executeSQLAttribute(models: [ColumnAttributeModel]) {
         do {
-            var configuration = PostgresClientKit.ConnectionConfiguration()
-            configuration.host = "localhost"
-            configuration.database = "caohuy"
-            configuration.user = "caohuy"
-            configuration.credential = Credential.trust
-            configuration.ssl = false
-
-            let connection = try PostgresClientKit.Connection(configuration: configuration)
+            guard let client = ConnectionService.shared.helper.client else { return }
                 
             for model in models {
                 for key in model.keys {
-                    let statement = try connection.prepareStatement(text: "SELECT \(key) FROM information_schema.columns WHERE table_name = '\(model.tableName)' AND column_name = '\(model.columnName)'")
+                    let statement = try client.prepareStatement(text: "SELECT \(key) FROM information_schema.columns WHERE table_name = '\(model.tableName)' AND column_name = '\(model.columnName)'")
        
                     defer { statement.close() }
                     
@@ -42,10 +35,6 @@ class DBTesterCore : ObservableObject {
                     }
                 }
             }
-            
-   
-            
-            connection.close()
         } catch {
             print(error)
         }

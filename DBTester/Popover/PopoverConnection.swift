@@ -19,39 +19,6 @@ struct PopoverConnection: View {
         VStack {
             HStack(spacing: 0) {
                 HStack {
-                    Text("Project")
-                }
-                .frame(width: 100)
-                .padding(.horizontal, 8)
-                .padding(.vertical, 4)
-                .background(!isConnectionListVisible ? Color(red: 55/255, green: 55/255, blue: 53/255) : Color.clear)
-                .overlay(
-                    VStack {
-                        Rectangle()
-                            .frame(height: 1) // Top border
-                            .foregroundColor(.black)
-                        Spacer()
-                        Rectangle()
-                            .frame(height: 1) // Bottom border (we'll hide this)
-                            .foregroundColor(.clear)
-                    }
-                )
-                .overlay(
-                    HStack {
-                        Rectangle()
-                            .frame(width: 1) // Left border
-                            .foregroundColor(.black)
-                        Spacer()
-                        Rectangle()
-                            .frame(width: 1) // Right border (we'll hide this)
-                            .foregroundColor(.clear)
-                    }
-                )
-                .onTapGesture {
-                    isConnectionListVisible.toggle()
-                }
-
-                HStack {
                     Text("Connection")
                 }
                 .frame(width: 100)
@@ -76,13 +43,46 @@ struct PopoverConnection: View {
                             .foregroundColor(.black)
                         Spacer()
                         Rectangle()
+                            .frame(width: 1) // Right border (we'll hide this)
+                            .foregroundColor(.clear)
+                    }
+                )
+                .onTapGesture {
+                    isConnectionListVisible = true
+                }
+                
+                
+                HStack {
+                    Text("Project")
+                }
+                .frame(width: 100)
+                .padding(.horizontal, 8)
+                .padding(.vertical, 4)
+                .background(!isConnectionListVisible ? Color(red: 55/255, green: 55/255, blue: 53/255) : Color.clear)
+                .overlay(
+                    VStack {
+                        Rectangle()
+                            .frame(height: 1) // Top border
+                            .foregroundColor(.black)
+                        Spacer()
+                        Rectangle()
+                            .frame(height: 1) // Bottom border (we'll hide this)
+                            .foregroundColor(.clear)
+                    }
+                )
+                .overlay(
+                    HStack {
+                        Rectangle()
+                            .frame(width: 1) // Left border
+                            .foregroundColor(.black)
+                        Spacer()
+                        Rectangle()
                             .frame(width: 1)
                             .foregroundColor(.black)
                     }
                 )
-                
                 .onTapGesture {
-                    isConnectionListVisible.toggle()
+                    isConnectionListVisible = false
                 }
             }
             .frame(height: 35)

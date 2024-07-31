@@ -9,6 +9,6 @@ import Foundation
 
 
 class EnvironmentString: ObservableObject {
-    @Published var selectedTabTopMainPanelName = ""
-    @Published var selectedTabBottomMainPanelName = ""
+    @Published var selectedtUnitTestFileName : String = ""
+    @Published var selectedSQLCommandFileName : String = ""
 }

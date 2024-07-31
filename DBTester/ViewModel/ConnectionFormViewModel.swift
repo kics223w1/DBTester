@@ -27,7 +27,7 @@ class ConnectionFormViewModel: ObservableObject {
     
     func testConnection(selectedDatabase: Database) async -> String {
         let con = self.getConnection(selectedDatabase: selectedDatabase)
-        return await ConnectionService.shared.canConnect(con: con)
+        return await ConnectionService.shared.helper.canConnect(con: con)
    }
     
     func addAndSaveConnection(selectedDatabase: Database) {

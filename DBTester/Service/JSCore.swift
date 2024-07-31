@@ -14,7 +14,6 @@ class JSCore : ObservableObject {
         self.setupContext()
     }
     
-    
     func getSQLCommands(script: String) -> [String] {
         let sqlCommandFolderPath = projectManagerService.getSQLCommandFolderPath()
         
@@ -88,6 +87,22 @@ class JSCore : ObservableObject {
         self.setupContext()
     }
     
+    func runTest(fileName: String) {
+        let folderPath = projectManagerService.getUnitTestFolderPath()
+        let filePath = (folderPath.path as NSString).appendingPathComponent(fileName)
+        
+        do {
+            let script = try String(contentsOfFile: filePath, encoding: .utf8)
+            if let result = executeScript(script: script) {
+                print("Script executed successfully: \(result)")
+            } else {
+                print("Script execution returned nil")
+            }
+        } catch {
+            print("Failed to read file: \(error) \(filePath)")
+        }
+    }
+    
     
     func executeScript(script : String) -> JSValue? {
         self.clearContext()
@@ -110,8 +125,6 @@ class JSCore : ObservableObject {
                     let models :[ColumnAttributeModel] = ColumnAttributeModel.createModels(from: jsonString);
                     DBTesterCore.shared.executeSQLAttribute(models: models)
                     
-                    
-                    
                     self.clearContext()
                     let newScript2 = addingClassHandler.getTopAddingScriptAtSecondTime(models: models)
                                 + "\n" + script
@@ -119,10 +132,6 @@ class JSCore : ObservableObject {
                     jsContext?.evaluateScript(newScript2)
                 }
             }
-            
-            
-            
-            
         } else {
             print("Failed to execute JavaScript code.")
             return nil

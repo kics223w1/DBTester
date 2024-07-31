@@ -13,7 +13,7 @@ struct FileModel {
         return name.hasSuffix(".js")
     }
     
-    static func createFileInFolderPath( name : String,folderPath : String) {
+    static func createFileInFolderPath(name : String, folderPath : String) {
         let fileManager = FileManager.default
         let filePath = (folderPath as NSString).appendingPathComponent(name)
         if !fileManager.fileExists(atPath: filePath) {
@@ -23,7 +23,7 @@ struct FileModel {
                 try fileContents.write(to: fileURL, atomically: true, encoding: .utf8)
                 print("File created successfully at \(filePath)")
             } catch {
-                print("Failed to create file: \(error.localizedDescription)")
+                print("Failed to create file: \(error.localizedDescription) \(filePath)")
             }
         } else {
             print("File already exists at \(filePath)")

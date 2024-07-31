@@ -43,7 +43,7 @@ struct ProjectList: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.vertical, 4)
                         .padding(.horizontal, 8)
-                        .background(selectedProject?.id == projectModel.id ? Color.blue : Color.clear)
+                        .background(selectedProject?.id == projectModel.id ? Color.green : Color.clear)
                         .cornerRadius(4)
                         .onTapGesture {
                             selectedProject = projectModel
@@ -73,8 +73,6 @@ struct ProjectList: View {
                 }
               
                 .buttonStyle(BorderedButtonStyle())
-                
-                
                 
                 Spacer()
                     .frame(width: 60)
