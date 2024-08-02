@@ -116,4 +116,17 @@ class ProjectManagerService : ObservableObject {
         let projectDir = self.getProjecetFolderPath()
         return projectDir.appendingPathComponent("Unit Test", isDirectory: true)
     }
+    
+    func getAllUniTestFileNames() -> [String]? {
+        let fileManager = FileManager.default
+        let folderPath = self.getUnitTestFolderPath()
+        
+        do {
+            let fileNames = try fileManager.contentsOfDirectory(atPath: folderPath.path)
+            return fileNames
+        } catch {
+            print("Error reading directory: \(error) \(folderPath)")
+            return nil
+        }
+    }
 }

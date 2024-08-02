@@ -9,59 +9,6 @@ import Foundation
 
 class AddingClass {
     
-    func getTopAddingScriptAtSecondTime(models: [ColumnAttributeModel]) -> String {
-        let jsObjects = models.map { model in
-                    model.getJSObject()
-        }
-        
-        // Flatten the array of JS objects into a single JavaScript array
-        let jsArrayString = jsObjects.joined(separator: ",\n")
-        
-                // Create the final script string
-                return
-"""
-class Assert {
-    equal(current, expected) {
-       if(current == expected) {
-            return true;
-       }
-
-       throw new Error(`Expected ${expected} got ${current}`);
-    }
-}
-
-class UnitTestHandler {
-    models = [\(jsArrayString)];
-}
-
-const assert = new Assert();
-const unitTestHandler = new UnitTestHandler();
-
-function it(unitTestName, callBack) {
-    try {
-        callBack()
-        console.log(`✅ ${unitTestName} passed`)
-    } catch(e) {
-        console.log(`${unitTestName} failed. ${e.message}`)
-    }
-}
-
-function getColumnAttribute(tableName, columnName, columnKey) {
-    const index = unitTestHandler.models.findIndex((model) => model.tableName === tableName && model.columnName === columnName)
-    if(index === -1) {
-        return undefined;
-    }
-
-    const keys = unitTestHandler.models[index].keys;
-    const results = unitTestHandler.models[index].results;
-
-    const indexKey = keys.findIndex((key) => key === columnKey);
-
-    return indexKey === -1 ? undefined : results[indexKey];
-}
-"""
-    }
-    
     func getTopAddingScriptAtFirstTime() -> String {
         return
 """
@@ -116,11 +63,85 @@ function getColumnAttribute(tableName, columnName, key) {
 """
     }
     
+    func getTopAddingScriptAtSecondTime(models: [ColumnAttributeModel]) -> String {
+        let jsObjects = models.map { model in
+                    model.getJSObject()
+        }
+        
+        // Flatten the array of JS objects into a single JavaScript array
+        let jsArrayString = jsObjects.joined(separator: ",\n")
+        
+                // Create the final script string
+                return
+"""
+class Assert {
+    equal(current, expected) {
+       if(current == expected) {
+            return true;
+       }
+
+       throw new Error(`Expected ${expected} got ${current}`);
+    }
+}
+
+
+let failed = 0;
+let count = 0;
+
+class UnitTestHandler {
+    models = [\(jsArrayString)];
+}
+
+const assert = new Assert();
+const unitTestHandler = new UnitTestHandler();
+
+async function sleep(ms) {
+    return await new Promise(resolve => setTimeout(resolve, ms))
+}
+
+function it(unitTestName, callBack) {
+    count += 1;
+
+    try {
+        callBack()
+    } catch(e) {
+        console.log(`Failed at ${unitTestName}. ${e.message}`)
+        failed += 1;
+    }
+}
+
+function getColumnAttribute(tableName, columnName, columnKey) {
+    const index = unitTestHandler.models.findIndex((model) => model.tableName === tableName && model.columnName === columnName)
+    if(index === -1) {
+        return undefined;
+    }
+
+    const keys = unitTestHandler.models[index].keys;
+    const results = unitTestHandler.models[index].results;
+
+    const indexKey = keys.findIndex((key) => key === columnKey);
+
+    return indexKey === -1 ? undefined : results[indexKey];
+}
+"""
+    }
+    
     func getBottomAddingScriptAtFirstTime() -> String {
         return
 """
 function main() {
     return unitTestHandler.getSQLCommands();
+}
+
+main();
+"""
+    }
+    
+    func getBottomAddingScriptAtSecondTime() -> String {
+        return
+"""
+function main() {
+    return [count, failed]
 }
 
 main();

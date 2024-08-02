@@ -19,12 +19,14 @@ struct MainPanelView: View {
     @State private var content: String = ""
     @State private var contentConsoleLog : String = ""
     @State private var debounceWorkItem: DispatchWorkItem?
+    @State private var isRunningTest :Bool = false
     
     @Binding var mainPanelTab : MainPanelTab
 
     @EnvironmentObject var environmentString: EnvironmentString
     @EnvironmentObject var projectManagerService: ProjectManagerService
     @EnvironmentObject var jsCore: JSCore
+    @EnvironmentObject var consoleLogService : ConsoleLogService
 
     private func loadContentFromFile() {
         let filePath = self.getFilePath()
@@ -156,6 +158,27 @@ struct MainPanelView: View {
                         mainPanelTab = MainPanelTab.consoleLog
                     }
                     
+                    Spacer()
+                    
+                    Button{
+                        if isRunningTest {
+                            DBTesterCore.shared.stopRunning()
+                            
+                            isRunningTest = false
+                        } else {
+                            self.mainPanelTab = .consoleLog
+                            
+                            DBTesterCore.shared.runAllTests(updateLog: $content, updateRunningTest: $isRunningTest)
+                            
+                            isRunningTest = true
+                        }
+                    } label: {
+                        Text(isRunningTest ? "Stop" : "Run tests")
+                    }
+                    .buttonStyle(BorderedButtonStyle())
+                    
+                    Spacer()
+                    
                 }
                 .frame(height: 35)
             
@@ -165,7 +188,7 @@ struct MainPanelView: View {
                     .overlay(.black)
 
             CodeEditor(
-                source: mainPanelTab == MainPanelTab.consoleLog ? $contentConsoleLog : $content,
+                source: $content,
                        language: mainPanelTab == MainPanelTab.unitTest ? .javascript : mainPanelTab == MainPanelTab.sqlCommand ? .sql : .tex  ,
                        theme: .default)
             }
@@ -176,13 +199,17 @@ struct MainPanelView: View {
                 self.loadContentFromFile()
             }
             .onChange(of: mainPanelTab) {
-                guard mainPanelTab != MainPanelTab.consoleLog else { return }
-                self.loadContentFromFile()
+                if self.mainPanelTab == .consoleLog {
+                    content = ConsoleLogService.shared.content
+                } else {
+                    self.loadContentFromFile()
+                }
             }
             .onChange(of: projectManagerService.selectedProjectModel.name) {
                 self.loadContentFromFile()
             }
             .onChange(of: content) {
+                guard mainPanelTab != MainPanelTab.consoleLog else { return }
                 self.saveContentToFile()
             }
     }

@@ -28,6 +28,7 @@
 		C84CD7D02C49404500B549DD /* DBTesterCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CD7CF2C49404500B549DD /* DBTesterCore.swift */; };
 		C84CD7D62C4A54A700B549DD /* PostgresNIO in Frameworks */ = {isa = PBXBuildFile; productRef = C84CD7D52C4A54A700B549DD /* PostgresNIO */; };
 		C84CD7D82C4A54A700B549DD /* _ConnectionPoolModule in Frameworks */ = {isa = PBXBuildFile; productRef = C84CD7D72C4A54A700B549DD /* _ConnectionPoolModule */; };
+		C85FA1DC2C5B8E5A003CD95D /* ConsoleLogService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85FA1DB2C5B8E5A003CD95D /* ConsoleLogService.swift */; };
 		C861883F2C4BE14400F53989 /* PopoverConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C861883E2C4BE14400F53989 /* PopoverConnection.swift */; };
 		C86188442C4D114300F53989 /* ConnectionWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86188432C4D114300F53989 /* ConnectionWindow.swift */; };
 		C868B6352C4BAC88001B4274 /* JSCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C868B6342C4BAC88001B4274 /* JSCore.swift */; };
@@ -84,6 +85,7 @@
 		C84CD7CB2C490BBF00B549DD /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		C84CD7CD2C490BC700B549DD /* OllamaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OllamaView.swift; sourceTree = "<group>"; };
 		C84CD7CF2C49404500B549DD /* DBTesterCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBTesterCore.swift; sourceTree = "<group>"; };
+		C85FA1DB2C5B8E5A003CD95D /* ConsoleLogService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleLogService.swift; sourceTree = "<group>"; };
 		C861883E2C4BE14400F53989 /* PopoverConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverConnection.swift; sourceTree = "<group>"; };
 		C86188432C4D114300F53989 /* ConnectionWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionWindow.swift; sourceTree = "<group>"; };
 		C868B6342C4BAC88001B4274 /* JSCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSCore.swift; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 				C848E4B32C4D35F80055B27E /* ConnectionService.swift */,
 				C883A0EB2C5238DF006897FA /* TemplateService.swift */,
 				C8EF1ECF2C598A7200C4AA5B /* HistoryService.swift */,
+				C85FA1DB2C5B8E5A003CD95D /* ConsoleLogService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -478,6 +481,7 @@
 				C83A0D0D2C47D7D600E7269D /* FileModel.swift in Sources */,
 				C84CD7D02C49404500B549DD /* DBTesterCore.swift in Sources */,
 				C890E16F2C5742030022CB8E /* ConnectionList.swift in Sources */,
+				C85FA1DC2C5B8E5A003CD95D /* ConsoleLogService.swift in Sources */,
 				C804A4712C53961A00B17F2C /* AddingClass.swift in Sources */,
 				C81E2E132C35922600728F3A /* ProjectModel.swift in Sources */,
 				C8EF1ED02C598A7200C4AA5B /* HistoryService.swift in Sources */,

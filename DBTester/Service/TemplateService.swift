@@ -24,7 +24,7 @@ class TemplateService {
 """
 const tableName = "employees";
 
-it("Test Column employee_id" , () => {
+it("Test Column employee_id" , async () => {
     const columnName = "employee_id";
 
     const att1 = getColumnAttribute(tableName, columnName, "is_nullable");
@@ -34,7 +34,7 @@ it("Test Column employee_id" , () => {
     assert.equal(att2, "numeric");
 })
 
-it("Test Column first_name" , () => {
+it("Test Column first_name" , async () => {
     const columnName = "first_name";
 
     const att1 = getColumnAttribute(tableName, columnName, "is_nullable");

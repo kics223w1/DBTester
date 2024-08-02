@@ -13,11 +13,12 @@ struct DBTesterApp: App {
     @StateObject var alertManager = AlertManager()
     @StateObject var environmentString = EnvironmentString()
     @StateObject var dbTesterCore = DBTesterCore()
+    @StateObject var consoleLogService = ConsoleLogService()
     @StateObject var projectManagerService = ProjectManagerService.shared
     @StateObject var connectionService = ConnectionService.shared
     @StateObject var historyService = HistoryService.shared
     @StateObject var jsCore = JSCore.shared
-
+    
     
     init()  {
         ProjectManagerService.shared.loadDataAtLaunch()
@@ -40,6 +41,8 @@ struct DBTesterApp: App {
                .environmentObject(connectionService)
                .environmentObject(jsCore)
                .environmentObject(historyService)
+               .environmentObject(consoleLogService)
+               .environmentObject(dbTesterCore)
                .onChange(of: alertManager.isOn) {
                    if !alertManager.text.isEmpty && alertManager.fromWho == "PopoverConnection" {
                        projectManagerService.addNewProject(name: alertManager.text)

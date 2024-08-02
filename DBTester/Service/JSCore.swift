@@ -1,5 +1,6 @@
 import Foundation
 import JavaScriptCore
+import SwiftUI
 
 class JSCore : ObservableObject {
     static let shared = JSCore()
@@ -9,8 +10,11 @@ class JSCore : ObservableObject {
     
     // A context for running JavaScript code
     private var jsContext: JSContext?
+    
+    private var currentLogs : [String]
 
     init() {
+        self.currentLogs = []
         self.setupContext()
     }
     
@@ -61,21 +65,16 @@ class JSCore : ObservableObject {
                 // If the message is an object, convert it to JSON string
                 if let data = try? JSONSerialization.data(withJSONObject: object, options: .prettyPrinted),
                    let jsonString = String(data: data, encoding: .utf8) {
-                    print("JavaScript console.log: \(jsonString)")
-                } else {
-                    print("JavaScript console.log: [Could not serialize object]")
+                   self.currentLogs.append(jsonString)
                 }
             } else if let array = message.toObject() as? [Any] {
                 // If the message is an array, convert it to JSON string
                 if let data = try? JSONSerialization.data(withJSONObject: array, options: .prettyPrinted),
                    let jsonString = String(data: data, encoding: .utf8) {
-                    print("JavaScript console.log: \(jsonString)")
-                } else {
-                    print("JavaScript console.log: [Could not serialize array]")
+                  self.currentLogs.append(jsonString)
                 }
             } else {
-                // Otherwise, print the message directly
-                print("JavaScript console.log: \(message)")
+                self.currentLogs.append(message.toString())
             }
         }
         
@@ -84,63 +83,66 @@ class JSCore : ObservableObject {
 
     
     func clearContext() {
+        self.currentLogs = []
         self.setupContext()
     }
     
-    func runTest(fileName: String) {
-        let folderPath = projectManagerService.getUnitTestFolderPath()
-        let filePath = (folderPath.path as NSString).appendingPathComponent(fileName)
-        
-        do {
-            let script = try String(contentsOfFile: filePath, encoding: .utf8)
-            if let result = executeScript(script: script) {
-                print("Script executed successfully: \(result)")
-            } else {
-                print("Script execution returned nil")
+    func executeScript(testName: String ,script : String , updateLog: Binding<String>) {
+        let result1 = self.executeScriptFirstTime(script: script , updateLog: updateLog)
+        if let jsValue = result1 {
+            
+            let result2 = self.executeScriptSecondTime(script: script, jsValue: jsValue , updateLog : updateLog)
+            if let jsValue2 = result2 {
+                if let resultArray = jsValue2.toObject() as? [Int] {
+                    let totalTests = resultArray[0]
+                    let failedTests = resultArray[1]
+                    
+                    for log in self.currentLogs {
+                        ConsoleLogService.shared.addContent(value: log, updateLog: updateLog)
+                    }
+                    
+                    ConsoleLogService.shared.addContent(value: "\(testName) | Total: \(totalTests) tests | ✅ \(totalTests - failedTests) passed | ❌ \(failedTests) failed.", updateLog: updateLog)
+                }
             }
-        } catch {
-            print("Failed to read file: \(error) \(filePath)")
+            return
         }
+        
+        ConsoleLogService.shared.addContent(value: "Failed to execute test \(testName)", updateLog: updateLog)
     }
     
-    
-    func executeScript(script : String) -> JSValue? {
+    private func executeScriptFirstTime(script: String ,  updateLog: Binding<String>) -> JSValue?  {
         self.clearContext()
         
         let newScript = addingClassHandler.getTopAddingScriptAtFirstTime()
                     + "\n" + script + "\n"
                     + addingClassHandler.getBottomAddingScriptAtFirstTime()
-            
+        
         if let result = jsContext?.evaluateScript(newScript) {
-            if result.isObject {
-                // If the result is an object, serialize it to JSON string
-                if let resultObject = result.toObject() as? [String: Any],
-                   let data = try? JSONSerialization.data(withJSONObject: resultObject, options: .prettyPrinted),
-                   let jsonString = String(data: data, encoding: .utf8) {
-                        
-                    
-                } else if let resultArray = result.toObject() as? [Any],
-                          let data = try? JSONSerialization.data(withJSONObject: resultArray, options: .prettyPrinted),
-                          let jsonString = String(data: data, encoding: .utf8) {
-                    let models :[ColumnAttributeModel] = ColumnAttributeModel.createModels(from: jsonString);
-                    DBTesterCore.shared.executeSQLAttribute(models: models)
-                    
-                    self.clearContext()
-                    let newScript2 = addingClassHandler.getTopAddingScriptAtSecondTime(models: models)
-                                + "\n" + script
-                                        
-                    jsContext?.evaluateScript(newScript2)
-                }
-            }
+            return result
         } else {
-            print("Failed to execute JavaScript code.")
             return nil
         }
-        
+    }
+    
+    private func executeScriptSecondTime(script : String , jsValue : JSValue , updateLog: Binding<String>) -> JSValue? {
+        if jsValue.isObject {
+            if let resultArray = jsValue.toObject() as? [Any],
+                      let data = try? JSONSerialization.data(withJSONObject: resultArray, options: .prettyPrinted),
+                      let jsonString = String(data: data, encoding: .utf8) {
+                let models :[ColumnAttributeModel] = ColumnAttributeModel.createModels(from: jsonString);
+                DBTesterCore.shared.executeSQLAttribute(models: models)
+                
+                self.clearContext()
+                
+                let newScript2 = addingClassHandler.getTopAddingScriptAtSecondTime(models: models)
+                + "\n" + script + "\n" + addingClassHandler.getBottomAddingScriptAtSecondTime()
+                                    
+                return jsContext?.evaluateScript(newScript2)
+            }
+        }
         
         return nil
     }
-    
     
     
 }
