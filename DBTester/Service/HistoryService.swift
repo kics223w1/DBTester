@@ -18,7 +18,9 @@ class HistoryService : ObservableObject {
     }
 
     func updateHistoryModels(newHistoryModels: [HistoryModel]) {
-        self.historyModels = newHistoryModels
+        DispatchQueue.main.async {
+            self.historyModels = newHistoryModels
+        }
     }
     
     func getHistoryModelByID(id: UUID) -> HistoryModel? {

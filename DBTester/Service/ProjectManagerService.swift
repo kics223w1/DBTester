@@ -21,22 +21,26 @@ class ProjectManagerService : ObservableObject {
     }
     
     func updateSelectedProjectModel(id: UUID) {
-        for index in self.projectModels.indices {
-            self.projectModels[index].isSelected = (self.projectModels[index].id == id)
-        }
-    
-        if let projectModel = self.projectModels.first(where: { $0.id == id }) {
-            self.selectedProjectModel = projectModel
-            self.saveData()
-        } else {
-            print("No project found with the id \(id)")
+        DispatchQueue.main.async {
+            for index in self.projectModels.indices {
+                self.projectModels[index].isSelected = (self.projectModels[index].id == id)
+            }
+        
+            if let projectModel = self.projectModels.first(where: { $0.id == id }) {
+                self.selectedProjectModel = projectModel
+                self.saveData()
+            } else {
+                print("No project found with the id \(id)")
+            }
         }
     }
 
     func addNewProject(name: String) {
-        let newProject = ProjectModel(name: name, isSelected: false)
-        self.projectModels.append(newProject)
-        self.saveData()
+        DispatchQueue.main.async {
+            let newProject = ProjectModel(name: name, isSelected: false)
+            self.projectModels.append(newProject)
+            self.saveData()
+        }
     }
 
     func saveData() {

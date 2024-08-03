@@ -6,12 +6,15 @@ struct TopNavigationBar: View {
     @State private var isPopoverConnectionVisible = false
     @State private var isHoveringButton = false
     @State private var connectionTitle : String = ""
+    @State private var isFreeVersion : Bool = true
     
     @Binding var mainPanelTab : MainPanelTab
 
     @EnvironmentObject var projectManagerService: ProjectManagerService
     @EnvironmentObject var connectionService: ConnectionService
-    @EnvironmentObject var environmentString: EnvironmentString
+    @EnvironmentObject var licenseService : LicenseService
+    
+    @Environment(\.openWindow) private var openWindow
 
     private func isConnectionOK() -> Bool {
         return connectionTitle.hasPrefix("Error!") || connectionTitle.hasPrefix("Tap to") ? false : true
@@ -19,14 +22,6 @@ struct TopNavigationBar: View {
     
     private func updateConnectionTitle() async {
         connectionTitle = await connectionService.getSelectedTitle()
-    }
-    
-    private func runSelectedTest() {
-        
-    }
-    
-    private func runAllTests() {
-        mainPanelTab = .consoleLog
     }
     
     var body: some View {
@@ -46,20 +41,25 @@ struct TopNavigationBar: View {
                     .buttonStyle(BorderedButtonStyle())
 
                 Button(action: {
-                        runAllTests()
                 }) {
                     Image(systemName: "play.fill")
                 }
                 .frame(height: 35)
                 
-                Text("FREE")
-                    .bold()
-                    .frame(width: 40, height: 25)
-                    .padding(.leading, 2)
-                    .padding(.trailing, 2)
-                    .background(Color.yellow)
-                    .foregroundStyle(.black)
-                    .cornerRadius(4)
+                if isFreeVersion {
+                    Text("FREE")
+                        .bold()
+                        .frame(width: 40, height: 25)
+                        .padding(.leading, 2)
+                        .padding(.trailing, 2)
+                        .background(Color.yellow)
+                        .foregroundStyle(.black)
+                        .cornerRadius(4)
+                        .onTapGesture {
+                            openWindow(id: "BuyDBTesterProWindow")
+                        }
+                }
+                
             }
             .frame(height: 30, alignment: .center)
             .offset(y: 8)
@@ -76,12 +76,18 @@ struct TopNavigationBar: View {
         .onAppear {
             Task {
                 await updateConnectionTitle()
+                isFreeVersion = !licenseService.isAuthorized
+                print("huy check: \(isFreeVersion)")
             }
         }
         .onChange(of: connectionService.connections) {
             Task {
                 await updateConnectionTitle()
             }
+        }
+        .onChange(of: licenseService.isAuthorized) {
+            print("huy new \(isFreeVersion)")
+            isFreeVersion = !licenseService.isAuthorized
         }
     }
 }

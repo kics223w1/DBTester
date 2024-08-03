@@ -18,10 +18,12 @@ struct DBTesterApp: App {
     @StateObject var connectionService = ConnectionService.shared
     @StateObject var historyService = HistoryService.shared
     @StateObject var jsCore = JSCore.shared
+    @StateObject var licenseService = LicenseService.shared
     
     
     init()  {
         ProjectManagerService.shared.loadDataAtLaunch()
+        LicenseService.shared.validateLicense()
     }
     
     var body: some Scene {
@@ -43,6 +45,7 @@ struct DBTesterApp: App {
                .environmentObject(historyService)
                .environmentObject(consoleLogService)
                .environmentObject(dbTesterCore)
+               .environmentObject(licenseService)
                .onChange(of: alertManager.isOn) {
                    if !alertManager.text.isEmpty && alertManager.fromWho == "PopoverConnection" {
                        projectManagerService.addNewProject(name: alertManager.text)
@@ -54,8 +57,12 @@ struct DBTesterApp: App {
                       await ConnectionService.shared.loadConnections()
                    }
                }
+            
         }
         .windowStyle(HiddenTitleBarWindowStyle())
+        .commands {
+            CustomCommand()
+        }
         
         
         WindowGroup(id : "Ollama") {
@@ -67,20 +74,12 @@ struct DBTesterApp: App {
           ConnectionWindow()
         }
         .windowStyle(HiddenTitleBarWindowStyle())
-    }
-}
-
-
-struct WindowAccessor: NSViewRepresentable {
-    var onWindow: (NSWindow?) -> Void
-    
-    func makeNSView(context: Context) -> NSView {
-        let view = NSView()
-        DispatchQueue.main.async {
-            self.onWindow(view.window)
+        
+        WindowGroup(id : "BuyDBTesterProWindow") {
+            BuyDBTesterProWindow()
+                .environmentObject(licenseService)
         }
-        return view
+        .defaultSize(width: 500, height: 400)
+        .windowStyle(HiddenTitleBarWindowStyle())
     }
-    
-    func updateNSView(_ nsView: NSView, context: Context) {}
 }

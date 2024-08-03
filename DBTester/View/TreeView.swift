@@ -64,9 +64,11 @@ struct TreeView: View {
                     }
                 }
             }
+
             
-            environmentString.selectedtUnitTestFileName = selectedTopPanelNode?.name ?? ""
-            environmentString.selectedSQLCommandFileName = selectedBottomPanelNode?.name ?? ""
+            environmentString.updateUnitTestFileName(fileName: selectedTopPanelNode?.name ?? "")
+            environmentString.updateSQLCommandFileName(fileName: selectedBottomPanelNode?.name ?? "")
+
             selectedNode = selectedTopPanelNode ?? selectedBottomPanelNode
             
             return [treeNodeUnitTest, treeNodeSQLCommand]
@@ -139,9 +141,9 @@ struct TreeView: View {
                 if !node.isParent {
                     selectedNode = node
                     if node.isUnitTest() {
-                        environmentString.selectedtUnitTestFileName = node.name
+                        environmentString.updateUnitTestFileName(fileName: node.name)
                     } else {
-                        environmentString.selectedSQLCommandFileName = node.name
+                        environmentString.updateSQLCommandFileName(fileName: node.name)
                     }
                 }
             }

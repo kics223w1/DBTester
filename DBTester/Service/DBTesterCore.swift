@@ -54,7 +54,9 @@ class DBTesterCore : ObservableObject {
     }
     
     func stopRunning() {
-        self.isRunningTest = false
+        DispatchQueue.main.async {
+            self.isRunningTest = false
+        }
     }
     
     func executeTest(unitTestName: String , updateLog: Binding<String>) {

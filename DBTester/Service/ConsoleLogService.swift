@@ -19,7 +19,9 @@ class ConsoleLogService : ObservableObject {
     }
     
     func addContent(value : String, updateLog: Binding<String>) {
-        self.content = self.content + value + "\n"
-        updateLog.wrappedValue = self.content
+        DispatchQueue.main.async {
+            self.content = self.content + value + "\n"
+            updateLog.wrappedValue = self.content
+        }
     }
 }

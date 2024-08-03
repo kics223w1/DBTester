@@ -54,6 +54,12 @@ class ConnectionService : ObservableObject {
         return savePath
     }
     
+    func updateConnections(newConnections: [ConnectionModel]) {
+        DispatchQueue.main.async {
+            self.connections = newConnections
+        }
+    }
+    
     func updateSelectedConnection(id: UUID) async -> String {
         guard let selectedConnection = self.connections.first(where: {$0.id == id}) else { return "Not found!" }
         
@@ -73,15 +79,19 @@ class ConnectionService : ObservableObject {
     }
     
     func addNewConnection(con : ConnectionModel) {
-        self.connections.append(con)
+        DispatchQueue.main.async {
+            self.connections.append(con)
+        }
     }
     
     func deleteConnection(con: ConnectionModel) {
-        if let index = connections.firstIndex(where: { $0.id == con.id }) {
-            connections.remove(at: index)
-            self.saveConnections()
-        } else {
-            print("Connection not found.")
+        DispatchQueue.main.async {
+            if let index = self.connections.firstIndex(where: { $0.id == con.id }) {
+                self.connections.remove(at: index)
+                self.saveConnections()
+            } else {
+                print("Connection not found.")
+            }
         }
     }
     
@@ -104,8 +114,9 @@ class ConnectionService : ObservableObject {
         do {
             let data = try Data(contentsOf: savePath)
             let decoder = JSONDecoder()
-            self.connections = try decoder.decode([ConnectionModel].self, from: data)
-            print("Connections loaded successfully. \(self.connections)")
+            let newConnections = try decoder.decode([ConnectionModel].self, from: data)
+            
+            self.updateConnections(newConnections: newConnections)
             
             if let selectedConnection = self.connections.first(where: { $0.isSelected }) {
                 await self.updateSelectedConnection(id: selectedConnection.id)
