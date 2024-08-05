@@ -54,7 +54,22 @@ struct DBTesterApp: App {
                }
                .onAppear {
                    Task {
-                      await ConnectionService.shared.loadConnections()
+                       do {
+                          // Start both tasks concurrently
+                          try await withThrowingTaskGroup(of: Void.self) { group in
+                              group.addTask {
+                                await ConnectionService.shared.loadConnections()
+                              }
+                              group.addTask {
+                                await UpdaterService.shared.checkIsNewUpdate()
+                              }
+                              // Wait for all tasks to complete
+                              try await group.waitForAll()
+                          }
+                      } catch {
+                          // Handle any errors
+                          print("Error in onAppear: \(error)")
+                      }
                    }
                }
             
@@ -65,8 +80,8 @@ struct DBTesterApp: App {
         }
         
         
-        WindowGroup(id : "Ollama") {
-          OllamaView()
+        WindowGroup(id : "Assistant") {
+          AssistantWindow()
         }
         .windowStyle(HiddenTitleBarWindowStyle())
         

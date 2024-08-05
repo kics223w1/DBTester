@@ -19,13 +19,14 @@
 		C83A0D112C47DF9400E7269D /* TreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C83A0D102C47DF9400E7269D /* TreeView.swift */; };
 		C83A0D132C47EDA800E7269D /* EnvironmentString.swift in Sources */ = {isa = PBXBuildFile; fileRef = C83A0D122C47EDA800E7269D /* EnvironmentString.swift */; };
 		C83E03712C5E33000029D12F /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C83E03702C5E33000029D12F /* StorageService.swift */; };
+		C83E03732C5E5A720029D12F /* AssistantWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C83E03722C5E5A720029D12F /* AssistantWindow.swift */; };
+		C83E03762C5E5C090029D12F /* OllamaKit in Frameworks */ = {isa = PBXBuildFile; productRef = C83E03752C5E5C090029D12F /* OllamaKit */; };
 		C848E4AD2C4D1F6F0055B27E /* ConnectionForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C848E4AC2C4D1F6F0055B27E /* ConnectionForm.swift */; };
 		C848E4B22C4D35DD0055B27E /* ConnectionFormController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C848E4B12C4D35DD0055B27E /* ConnectionFormController.swift */; };
 		C848E4B42C4D35F80055B27E /* ConnectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C848E4B32C4D35F80055B27E /* ConnectionService.swift */; };
 		C848E4B72C4D36D20055B27E /* ConnectionFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C848E4B62C4D36D20055B27E /* ConnectionFormViewModel.swift */; };
 		C848E4BA2C4D70A90055B27E /* PostgresClientKit in Frameworks */ = {isa = PBXBuildFile; productRef = C848E4B92C4D70A90055B27E /* PostgresClientKit */; };
 		C84CD7CC2C490BBF00B549DD /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CD7CB2C490BBF00B549DD /* HistoryView.swift */; };
-		C84CD7CE2C490BC700B549DD /* OllamaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CD7CD2C490BC700B549DD /* OllamaView.swift */; };
 		C84CD7D02C49404500B549DD /* DBTesterCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84CD7CF2C49404500B549DD /* DBTesterCore.swift */; };
 		C84CD7D62C4A54A700B549DD /* PostgresNIO in Frameworks */ = {isa = PBXBuildFile; productRef = C84CD7D52C4A54A700B549DD /* PostgresNIO */; };
 		C84CD7D82C4A54A700B549DD /* _ConnectionPoolModule in Frameworks */ = {isa = PBXBuildFile; productRef = C84CD7D72C4A54A700B549DD /* _ConnectionPoolModule */; };
@@ -41,6 +42,7 @@
 		C88EA8C42C5D99E1003B44D6 /* LicenseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88EA8C32C5D99E1003B44D6 /* LicenseService.swift */; };
 		C890E16F2C5742030022CB8E /* ConnectionList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C890E16E2C5742030022CB8E /* ConnectionList.swift */; };
 		C890E1712C57424C0022CB8E /* ProjectList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C890E1702C57424C0022CB8E /* ProjectList.swift */; };
+		C8AE05EB2C6106A500E51761 /* UpdaterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AE05EA2C6106A500E51761 /* UpdaterService.swift */; };
 		C8D897F12C3072F000277410 /* DBTesterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D897F02C3072F000277410 /* DBTesterApp.swift */; };
 		C8D897F32C3072F000277410 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D897F22C3072F000277410 /* ContentView.swift */; };
 		C8D897F52C3072F100277410 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C8D897F42C3072F100277410 /* Assets.xcassets */; };
@@ -84,12 +86,12 @@
 		C83A0D102C47DF9400E7269D /* TreeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeView.swift; sourceTree = "<group>"; };
 		C83A0D122C47EDA800E7269D /* EnvironmentString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentString.swift; sourceTree = "<group>"; };
 		C83E03702C5E33000029D12F /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
+		C83E03722C5E5A720029D12F /* AssistantWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantWindow.swift; sourceTree = "<group>"; };
 		C848E4AC2C4D1F6F0055B27E /* ConnectionForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionForm.swift; sourceTree = "<group>"; };
 		C848E4B12C4D35DD0055B27E /* ConnectionFormController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionFormController.swift; sourceTree = "<group>"; };
 		C848E4B32C4D35F80055B27E /* ConnectionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionService.swift; sourceTree = "<group>"; };
 		C848E4B62C4D36D20055B27E /* ConnectionFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionFormViewModel.swift; sourceTree = "<group>"; };
 		C84CD7CB2C490BBF00B549DD /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
-		C84CD7CD2C490BC700B549DD /* OllamaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OllamaView.swift; sourceTree = "<group>"; };
 		C84CD7CF2C49404500B549DD /* DBTesterCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBTesterCore.swift; sourceTree = "<group>"; };
 		C85FA1DB2C5B8E5A003CD95D /* ConsoleLogService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleLogService.swift; sourceTree = "<group>"; };
 		C861883E2C4BE14400F53989 /* PopoverConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverConnection.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 		C88EA8C32C5D99E1003B44D6 /* LicenseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseService.swift; sourceTree = "<group>"; };
 		C890E16E2C5742030022CB8E /* ConnectionList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionList.swift; sourceTree = "<group>"; };
 		C890E1702C57424C0022CB8E /* ProjectList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectList.swift; sourceTree = "<group>"; };
+		C8AE05EA2C6106A500E51761 /* UpdaterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdaterService.swift; sourceTree = "<group>"; };
 		C8D897ED2C3072F000277410 /* DBTester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DBTester.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8D897F02C3072F000277410 /* DBTesterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBTesterApp.swift; sourceTree = "<group>"; };
 		C8D897F22C3072F000277410 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -126,6 +129,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C83E03762C5E5C090029D12F /* OllamaKit in Frameworks */,
 				C83478A32C50E5540063990B /* CodeEditor in Frameworks */,
 				C84CD7D82C4A54A700B549DD /* _ConnectionPoolModule in Frameworks */,
 				C848E4BA2C4D70A90055B27E /* PostgresClientKit in Frameworks */,
@@ -179,6 +183,7 @@
 				C88EA8C12C5D60BB003B44D6 /* NetworkService.swift */,
 				C88EA8C32C5D99E1003B44D6 /* LicenseService.swift */,
 				C83E03702C5E33000029D12F /* StorageService.swift */,
+				C8AE05EA2C6106A500E51761 /* UpdaterService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -212,6 +217,7 @@
 			children = (
 				C86188432C4D114300F53989 /* ConnectionWindow.swift */,
 				C88EA8BF2C5D2E95003B44D6 /* BuyDBTesterProWindow.swift */,
+				C83E03722C5E5A720029D12F /* AssistantWindow.swift */,
 			);
 			path = Window;
 			sourceTree = "<group>";
@@ -325,7 +331,6 @@
 				C81E2E0F2C35884100728F3A /* TopNavigationBar.swift */,
 				C83A0D102C47DF9400E7269D /* TreeView.swift */,
 				C84CD7CB2C490BBF00B549DD /* HistoryView.swift */,
-				C84CD7CD2C490BC700B549DD /* OllamaView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -367,6 +372,7 @@
 				C84CD7D72C4A54A700B549DD /* _ConnectionPoolModule */,
 				C848E4B92C4D70A90055B27E /* PostgresClientKit */,
 				C83478A22C50E5540063990B /* CodeEditor */,
+				C83E03752C5E5C090029D12F /* OllamaKit */,
 			);
 			productName = DBTester;
 			productReference = C8D897ED2C3072F000277410 /* DBTester.app */;
@@ -445,6 +451,7 @@
 				C84CD7D42C4A54A700B549DD /* XCRemoteSwiftPackageReference "postgres-nio" */,
 				C848E4B82C4D70A90055B27E /* XCRemoteSwiftPackageReference "PostgresClientKit" */,
 				C83478A12C50E5540063990B /* XCRemoteSwiftPackageReference "CodeEditor" */,
+				C83E03742C5E5C090029D12F /* XCRemoteSwiftPackageReference "OllamaKit" */,
 			);
 			productRefGroup = C8D897EE2C3072F000277410 /* Products */;
 			projectDirPath = "";
@@ -492,12 +499,12 @@
 				C88EA8C02C5D2E95003B44D6 /* BuyDBTesterProWindow.swift in Sources */,
 				C883A0EC2C5238DF006897FA /* TemplateService.swift in Sources */,
 				C83E03712C5E33000029D12F /* StorageService.swift in Sources */,
+				C83E03732C5E5A720029D12F /* AssistantWindow.swift in Sources */,
 				C804A4732C540A0700B17F2C /* ColumnAttributeModel.swift in Sources */,
 				C86188442C4D114300F53989 /* ConnectionWindow.swift in Sources */,
 				C861883F2C4BE14400F53989 /* PopoverConnection.swift in Sources */,
 				C868B6352C4BAC88001B4274 /* JSCore.swift in Sources */,
 				C88EA8BB2C5D1AAC003B44D6 /* CustomCommand.swift in Sources */,
-				C84CD7CE2C490BC700B549DD /* OllamaView.swift in Sources */,
 				C8D897F32C3072F000277410 /* ContentView.swift in Sources */,
 				C82CB2372C3691CA007657BE /* ProjectManagerService.swift in Sources */,
 				C848E4B22C4D35DD0055B27E /* ConnectionFormController.swift in Sources */,
@@ -523,6 +530,7 @@
 				C8EF1ECE2C5988F300C4AA5B /* HistoryModel.swift in Sources */,
 				C83A0D132C47EDA800E7269D /* EnvironmentString.swift in Sources */,
 				C84CD7CC2C490BBF00B549DD /* HistoryView.swift in Sources */,
+				C8AE05EB2C6106A500E51761 /* UpdaterService.swift in Sources */,
 				C8D897F12C3072F000277410 /* DBTesterApp.swift in Sources */,
 				C88EA8C42C5D99E1003B44D6 /* LicenseService.swift in Sources */,
 			);
@@ -693,12 +701,14 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = DBTester;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 0.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = caoviethuy.DBTester;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -720,12 +730,14 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = DBTester;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 0.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = caoviethuy.DBTester;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -855,6 +867,14 @@
 				minimumVersion = 1.2.6;
 			};
 		};
+		C83E03742C5E5C090029D12F /* XCRemoteSwiftPackageReference "OllamaKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kevinhermawan/OllamaKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.4;
+			};
+		};
 		C848E4B82C4D70A90055B27E /* XCRemoteSwiftPackageReference "PostgresClientKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/codewinsdotcom/PostgresClientKit";
@@ -886,6 +906,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C83478A12C50E5540063990B /* XCRemoteSwiftPackageReference "CodeEditor" */;
 			productName = CodeEditor;
+		};
+		C83E03752C5E5C090029D12F /* OllamaKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C83E03742C5E5C090029D12F /* XCRemoteSwiftPackageReference "OllamaKit" */;
+			productName = OllamaKit;
 		};
 		C848E4B92C4D70A90055B27E /* PostgresClientKit */ = {
 			isa = XCSwiftPackageProductDependency;

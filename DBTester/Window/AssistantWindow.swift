@@ -1,18 +1,18 @@
 //
-//  OllamaView.swift
+//  AssistantWindow.swift
 //  DBTester
 //
-//  Created by Cao Huy on 18/7/24.
+//  Created by Cao Huy on 3/8/24.
 //
 
 import SwiftUI
 
-struct OllamaView: View {
+struct AssistantWindow: View {
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
 
 #Preview {
-    OllamaView()
+    AssistantWindow()
 }

@@ -29,10 +29,10 @@ struct LeftPanelView: View {
                         }
                     }
                 
-                Text("Ollama")
+                Text("Assistant")
                     .foregroundColor(Color.gray)
                     .onTapGesture {
-                        openWindow(id: "Ollama")
+                        openWindow(id: "Assistant")
                     }
             }
             .frame(height: 20)

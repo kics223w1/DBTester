@@ -1,5 +1,5 @@
 {
-  "originHash" : "ebdbdefacf527cd787e3301ce385e70a9d8ed6406b5bb6abec71db2a58907970",
+  "originHash" : "a713946b4aad926e07150ee822a0409bc7b6368770b5a19f22f0a3106946b777",
   "pins" : [
     {
       "identity" : "async-kit",
@@ -44,6 +44,15 @@
       "state" : {
         "revision" : "bd0358056ff1f12ea83833a9fc1b3b5a396a9da0",
         "version" : "3.0.2"
+      }
+    },
+    {
+      "identity" : "ollamakit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kevinhermawan/OllamaKit.git",
+      "state" : {
+        "revision" : "46a2cf8a105c9e68e20d194d1caa5bcddc6a4d83",
+        "version" : "5.0.4"
       }
     },
     {
