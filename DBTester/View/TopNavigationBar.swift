@@ -7,6 +7,7 @@ struct TopNavigationBar: View {
     @State private var isHoveringButton = false
     @State private var connectionTitle : String = ""
     @State private var isFreeVersion : Bool = true
+    @State private var newUpdate : Bool = false
     
     @Binding var mainPanelTab : MainPanelTab
 
@@ -15,7 +16,7 @@ struct TopNavigationBar: View {
     @EnvironmentObject var licenseService : LicenseService
     
     @Environment(\.openWindow) private var openWindow
-
+    
     private func isConnectionOK() -> Bool {
         return connectionTitle.hasPrefix("Error!") || connectionTitle.hasPrefix("Tap to") ? false : true
     }
@@ -27,6 +28,22 @@ struct TopNavigationBar: View {
     var body: some View {
         VStack {
             HStack(alignment: .center, spacing: 10) {
+                if newUpdate {
+                    Link(destination: URL(string: UpdaterService.shared.linkDownload)!) {
+                        Text("New update")
+                            .bold()
+                            .frame(height: 25)
+                            .padding(.leading, 4)
+                            .padding(.trailing, 4)
+                            .background(Color.yellow)
+                            .foregroundStyle(.black)
+                            .cornerRadius(4)
+                    }
+                }
+                
+                
+                
+                
                 Text("\(projectManagerService.selectedProjectModel.name) | \(connectionTitle)")
                     .padding(.leading, 8)
                     .frame(width: 400, height: 25, alignment: .leading)
@@ -76,8 +93,10 @@ struct TopNavigationBar: View {
         .onAppear {
             Task {
                 await updateConnectionTitle()
+                await UpdaterService.shared.checkIsNewUpdate()
+
                 isFreeVersion = !licenseService.isAuthorized
-                print("huy check: \(isFreeVersion)")
+                newUpdate = UpdaterService.shared.newUpdate
             }
         }
         .onChange(of: connectionService.connections) {
@@ -86,7 +105,6 @@ struct TopNavigationBar: View {
             }
         }
         .onChange(of: licenseService.isAuthorized) {
-            print("huy new \(isFreeVersion)")
             isFreeVersion = !licenseService.isAuthorized
         }
     }

@@ -19,7 +19,7 @@ class UpdaterService : ObservableObject {
     
     init() {
         self.newUpdate = false
-        self.linkDownload = ""
+        self.linkDownload = "https://github.com/kics223w1/DBTester"
     }
     
     func checkIsNewUpdate() async {
@@ -28,12 +28,12 @@ class UpdaterService : ObservableObject {
                 print("Failed to get current build number")
                 return
             }
-            let responseResult =  try await networkService.performRequest(method: "GET", endpoint: "https://dbtester-server.vercel.app/v1/version?buildNumber=\(currentBuildNumber)", body: nil)
+            let responseResult = try await networkService.performRequest(method: "GET", endpoint: "https://dbtester-server.vercel.app/v1/version?buildNumber=\(currentBuildNumber)", body: nil)
 
                         
             // Assuming responseResult contains a dictionary with a key "buildNumber
             if let newUpdate = responseResult["newUpdate"] as? Bool  {
-                self.newUpdate = true
+                self.newUpdate = newUpdate
         
             }
             
